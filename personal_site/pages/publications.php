@@ -1,0 +1,10 @@
+<?php
+	include('snippets/publications_sidebar.html');
+	include('snippets/articles/MMP.html');
+	include('snippets/articles/Markov.html');
+	include('snippets/articles/NCP1B.html');
+	include('snippets/articles/Preprojective.html');
+	include('snippets/articles/CYdefos.html');
+	include('snippets/articles/MCMmodels.html');
+	include('snippets/articles/NDQPs.html')
+?>

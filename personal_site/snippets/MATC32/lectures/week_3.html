@@ -1,0 +1,70 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 2</h2>
+        <p >In this third week of classses, we finished Konig's theorem and went on to introduce networks and what they can do for us.<br>
+        </p>
+        <p>
+             I began by giving a picture summary of how you should remember the proof of Konig's theorem (see Week 2).</br><br>
+             We then went on to introduce the next big theorem in the course: the min-cut/max-flow theorem for networks. To introduce this problem, I gave a little historic context</br>
+             In the mid-50's two US air force researchers, Harris and Ross drew up a plan of the rail network linking the Soviet Union to its satelite countries (consisting of 44 major train hubs and 105 major train routes).<br>
+             They were interested in figuring out how sophisticated thhis networkw was and if any vulnaribilities could be found and exploited.<br> 
+        </p>
+        <div class="lecture-image">
+            <img src="assets/MATC32/lectures/week_3/Warsaw_pact.png">
+        </div>
+             Using trial and error, they figured out two key bits of information: 
+             <ul>
+             <li>
+             the total amount of goods that could be transported on the network </li>
+             <li>
+              The minimal effort needed to disrupt the network, i.e. the lightest trains (in terms of goods they could carry) they needed to blow for the network to be disconnected.
+             <li>   
+            This problem can easily be modelled using graph theory, and it was proven that the above situation really was an example of a more general result, called the the max-flow,min-cut theorem.<br>
+            To describe how graph theory was used to formalize the train-model, I described a network as follows:
+            <div class= "definition"> 
+                A simple directed graph (i.e. at most one arrow going from one vertex to another), together with two explicit vertices: the source \s\) and sink \(t\) and a capcity \(c:E(G)\longrightarrow \mathbb{R}_{\ge 0}\)
+             </div>
+             To make things easier, I extended the capacity to \(V\times V\) by defining it as 0 if there is no edge from the first to the second vertex, and denote \(u\rightarrow v\), the edge from \(u\) to \(v\).<br> 
+             The idea of exactly how much goods can be carried accros the network is in turn formalized in the form of a network:
+             <div class="definition">
+              A flow is a function \(E(G)\longrightarrow \mathbb{R}_{\ge 0}\) such that
+                <ol>
+                    <li>  the flow is smaller than the capacity along any edge: \(f(u\rightarrow v)\le c(u\rightarrow v)\)</li>
+                    <li> for each vertex  \(v \neq s,t\) the net flow satisfies  \[\partial f(v)=f^+(v)-f^-(v)=\sum_{u \in V} f(v\rightarrow u)-\sum_{w \in V} f(w\rightarrow v )=0 \]  </li>
+                </ol>
+            </div>
+            An example of a flow is given below:<br>
+             <img src="assets/MATC32/lectures/week_3/flow.png">
+             To model the idea of disrupting the network, we make the following:
+             <div class = "definition">
+             An \(S,T\)-cut of a network is a partition \(V=S\coprod T\) such that \(s \in S,t \in T\)
+             </div>
+             Below is an example of such a cut:<br>
+            <img src="assets/MATC32/lectures/week_3/cut.png">
+             What we are interested in is how tow specific numbers relate
+             <div class = "definition">
+             The value if a flow is given by \(\vert f\vert =\partial f(s)\), we say a  flow  is maximal if for any other flow \(\vert f'vert \) on \(G \), we have\(\vert f \vert \\ge \vert f'\vert \).<br>
+             The capacity of a cut \((S,T)\) is the number \(\vert \vert (S,T)\vert\vert =\sum_{u\in S,v \in T} c(u\rightarrow v)\). It is minimal if for any other cut \(S,T\), we have \(\vert \vert (S,T)\vert \ ert \le \vert \vert (S,,T,\vert \vert)\)
+             </div>
+             In the above example, we have \(10=\vert f\vert \le \vert \vert (S,T)\vert \vert =10\)
+             One very profound theorem iin the theory of networks, (which the US air force managed to check ad hoc) is the following:
+             <div class= "theorem">
+             For any network, the value of a maximal flow equals the capacity of a minimal cut.
+             </div>
+             For example, the network above predicts that the maximal flow or capacity of the minimal cut, implying this number must be somewhere between  10 and 15...<br>
+            </p> 
+            This theorem is rather profound and has some powerfu applications: let's say you want to prove a statement of the following form:
+            <div class="centered-bubble">
+            There exists a set of \(k\) edges with a certain property \(P\) as long as any set of  vertices with a certain property \(Q\) is bounded by  \(k\)
+            </div>
+            You would prove this as follows
+            <ol>
+                <li> Find a clever way to turn the graph into a network</li>
+                <li> a flow having value \(k\) should then correspond the existence of a set of \(k\) edges with property \(P\) </li>
+                <li> A set of  \(k\) vertices having property \(Q\) in turn should correspond to a cut of capacity \(k\) </li>
+                <li>The theorem now allows you to conclude that the there exists a flow of value \(k\) rprovded any cut has capacity at least \(k\) </li>
+                <li> Retranslating, you have proven the result</li>
+            </ol>
+            In week 5, we will see two important results which are easily proven using this method
+	 </div>
+</div>

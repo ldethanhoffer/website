@@ -1,0 +1,29 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 4</h2>
+        <a class="button article_link" href="https://github.com/ldethanhoffer/banknote_forgery/blob/master/banknote_forgery.ipynb">banknote forgery</a>
+        <p> This week, we began by looking at a hands-on example of descriptive statistics -as discussed in chapter 5- and looked at some code. You can find a link to this code by clicking the button above</p><br><br>
+        First off, you should know the code written in the Python programming language, which arguably is the most important prgramming langugae used in tech today.<br><br>
+        We also spent some time introducing chapter 6: likelihood inference. We started by observing a fatal flaw in the idea of descriptive statistics: indeed, given \(\Delta \subset S\) and some statistical model \(\Theta\Longrightarrow S\):
+        <div class= "centered-bubble">
+        the construction of \(P_\theta\) in descriptive statistics does not use the model \(\Theta\Longrightarrow S\) in any way, and is dependent solely on the data \(\Delta\)!
+        </div> 
+        In the coming chapters, we will consider other approaches to statistics that do rely on the statistical model<br>
+        Chapter 6 is a first approach: likelihood inference. <br>
+        The idea here is to find a way to model the likelihood that the data \(\Delta\) will be obtained given that it is the result of a random sample with some probability measure \(P_\theta\). More precisely, for each \(\theta \in \Theta\) write the data as \(\Delta=(x_1,\ldots , x_n)\) and consider a random sample \(X_1,\ldots, X_n\) with probability \(P_\theta\).<br> 
+        The likelihood that the data \(x_1,\ldots x_n\) is the result of the random sample assuming the random sample has distribution \(P_\theta\) is simple the density function of the joined random variable 
+        \[X_1\wedge\ldots \wedge X_n:S\longrightarrow \mathbb{R}^n:s \mapsto X_1(s),\ldots X_n(s)\]
+        evaluated at the data:, i.e \( f_{X_1\wedge X_2\wedge \ldots \wedge X_n}(x_1,\ldots ,x_n)\). Now, using independence of the RV's and the fact that \(f_{X_i}=f_\theta\) we obtain \(f_{X_1\wedge X_2\wedge \ldots \wedge X_n}(x_1,\ldots ,x_n)=\prod_i \, f_\theta(x_i)
+        \)
+        We thus define the likelihood as the function
+        \[
+       L: \Theta\longrightarrow \mathbb{R}:\theta \longrightarrow L(\Delta \vert \theta)=\prod_i f_\theta (x_is) \textrm{ and } \Theta
+        \]
+        If the likelihod reaches a unique maximum for a value \(\theta\), we say that \(\theta\) is the MLE for the data.
+        As an example
+        <div class = "example">
+        Assume we throw 10 coins which may be biased the probability of heads being \(\theta\). Let \(k\) be amount of heads in the experiment. Then \[L(k,\theta)=\binom{n}{k}\theta^k\]
+        </div>
+        The curve is drawn below. for \(k=4\). Can you find an MLE? Does it make sense?
+    </div>
+</div>

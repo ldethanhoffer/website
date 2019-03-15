@@ -1,0 +1,25 @@
+ <div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 11</h2>
+        In this penultimate week of classes, we discussed some of the important algorithms in graph theory. In particular, we discussed we turned our attention to two questions regarding weighted graphs (recall that a weighted graph is simply an edge-colored graph whose colors are positive integers.
+        <ol>
+        	<li>how can we find a spanning tree whose total weight has minimal value?</li> (MST)
+        	<li>How can we find the path with shortest total weight between two vertices?</li> (SDP)
+        </ol>
+        We began by discussing the two algorithms that solve the (MST) problem first. To understand how these work, we'll think of MST in terms of 
+        <div class="centered-bubble">
+        MST=minimal+connected+acyclic+spanning
+        </div>
+        The first algorithm, named after J. Kruskal intuitively adds the edge minimal edge that is legal at each step: 
+        <div class="algorithm">
+        (Kruskal)<br>
+        <ol>
+        	<li> Let \(T\) be the graph without edges and \(V(T)=V\) </li>
+        	<li> if \(T\) is not connected, add an edge \(e\) in \(E\) that reduces the number of components of minimal weight </li>
+        	<li>reallocate \(T=T\cup \{e\} \)<li>
+        	<li> repeat step 2</li>
+		</ol>
+		Note that by Konig's theorem the number of components reduces if and only if the edge does not lie on a cycle in \(T\). We could thus reinterpret Kruskal's algorithm
+        </div>
+    </div>
+</div>

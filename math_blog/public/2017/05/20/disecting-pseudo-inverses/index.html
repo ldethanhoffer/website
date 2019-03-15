@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Disecting Pseudo-inverses &middot; </title>
+    <meta name="generator" content="Hugo 0.27.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Math vs. Machine">
+    
+      <meta name="description" content="">
+    
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="canonical" href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/"/>
+    <link rel="icon" href="https://mathvsmachine.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mathvsmachine.com/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/style.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/monokai.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/fancybox/jquery.fancybox.css">
+    
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/theorems.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Disecting Pseudo-inverses" />
+<meta property="og:description" content="Welcome to the third installment of our post series on linear regression&hellip;our way!!
+Let&rsquo;s start by recapping what we already discussed:
+In the first post, we explained how to define linear regression as a supervised learner: Let $\mathfrak{X}$ be a set of features and $\mathfrak{y}$ a finite dimensional inner product space. Pick $\mathfrak{H} \subset \text{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ to be any finite dimensional subspace of functions as well as a collection $\mathfrak{D}$ of finite datasets $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that separate $\mathfrak{H}$ in the sense that any $h \in \mathfrak{H}$ is uniquely determined by its restriction on $\Delta$." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" />
+
+
+
+<meta property="article:published_time" content="2017-05-20T11:58:06&#43;02:00"/>
+<meta property="article:modified_time" content="2017-05-20T11:58:06&#43;02:00"/>
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Disecting Pseudo-inverses">
+<meta itemprop="description" content="Welcome to the third installment of our post series on linear regression&hellip;our way!!
+Let&rsquo;s start by recapping what we already discussed:
+In the first post, we explained how to define linear regression as a supervised learner: Let $\mathfrak{X}$ be a set of features and $\mathfrak{y}$ a finite dimensional inner product space. Pick $\mathfrak{H} \subset \text{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ to be any finite dimensional subspace of functions as well as a collection $\mathfrak{D}$ of finite datasets $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that separate $\mathfrak{H}$ in the sense that any $h \in \mathfrak{H}$ is uniquely determined by its restriction on $\Delta$.">
+
+
+<meta itemprop="dateModified" content="2017-05-20T11:58:06&#43;02:00" />
+<meta itemprop="wordCount" content="1023">
+
+
+
+<meta itemprop="keywords" content="linear regression,linear algebra," />
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Disecting Pseudo-inverses"/>
+<meta name="twitter:description" content="Welcome to the third installment of our post series on linear regression&hellip;our way!!
+Let&rsquo;s start by recapping what we already discussed:
+In the first post, we explained how to define linear regression as a supervised learner: Let $\mathfrak{X}$ be a set of features and $\mathfrak{y}$ a finite dimensional inner product space. Pick $\mathfrak{H} \subset \text{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ to be any finite dimensional subspace of functions as well as a collection $\mathfrak{D}$ of finite datasets $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that separate $\mathfrak{H}$ in the sense that any $h \in \mathfrak{H}$ is uniquely determined by its restriction on $\Delta$."/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mathvsmachine.com" id="logo">
+          
+          <span class="site-title"></span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png">
+      
+      <h2 id="name">Math vs. Machine</h2>
+      <h3 id="title">Louis de Thanhoffer de Volcsey</h3>
+      
+      
+          <a id="follow" href="https://louisdethanhoffer.com">
+              Website
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        6
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          3
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/ldethanhoffer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+<td><a href="//linkedin.com/in/louisdethanhoffer" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+          <td><a href="https://mathvsmachine.com/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://mathvsmachine.com/banners/diagram.png" class="article-banner">
+        
+
+        
+
+<header class="article-header">
+    <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/">
+    <h1 class="article-title" itemprop="name">
+        Disecting Pseudo-inverses
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+            &middot;
+            
+            1023
+            words
+            &middot;
+            
+            
+            
+        
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-list-alt"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>Welcome to the third installment of our post series on linear regression&hellip;our way!!</p>
+
+<p>Let&rsquo;s start by recapping what we already discussed:</p>
+
+<p>In the <a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/">first post</a>, we explained how to define linear regression as a supervised learner: Let $\mathfrak{X}$ be a set of features and $\mathfrak{y}$ a finite dimensional inner product space. Pick $\mathfrak{H} \subset \text{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ to be any finite dimensional subspace of functions as well as a  collection $\mathfrak{D}$ of finite datasets $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that <em>separate</em> $\mathfrak{H}$ in the sense that any $h \in \mathfrak{H}$ is uniquely determined by its restriction on $\Delta$.<br />
+ Finally, define a cost function as follows
+$$
+c: \mathfrak{D}\times \mathfrak{H}:(\Delta, f)\mapsto \vert \vert (f(x)-y)_{(x,y)\in\Delta}\vert \vert_{\mathfrak{y}^\Delta}=\sqrt{\sum_{(x,y)\in \Delta}\vert \vert f(x)-y\vert\vert_{\mathfrak{y}}}
+$$</p>
+
+<p>Then this defines a sharp learner in the sense that
+$$
+h_\Delta = \textrm{argmin}_{f \in \mathfrak{H}} c(\Delta, f)
+$$
+Is well defined.</p>
+
+<p>In the <a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/">second post</a>, we explained how to go about proving this result.<br />
+Specifically, we showed how to <em>construct</em> this hypothesis $h_\Delta$:</p>
+
+<p>Look at the following map:
+$$
+\text{ev}_{\Delta}: \mathfrak{H}\longrightarrow \mathfrak{y}^\Delta: f\mapsto (f(x))_{x \in \Delta}
+$$
+and consider the image subspace $\text{im}(\text{ev}_\Delta)\subset \mathfrak{y}^\Delta$. Then let $h_\Delta$ is the projection of the labels $(y)_{y \in \Delta}$ onto $\text{im}(\text{ev}_\Delta)$. In the <a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/">previous  post</a>, we denoted this projection by $\text{ev}^+\big( (y)_{y \in \Delta}\big)$.</p>
+
+<p>Today, we explain how this $+$ sign is much more than just a piece of notation. There is in fact some very elegant mathematics lurking in the background in the form of <a href="https://en.wikipedia.org/wiki/Moore–Penrose_inverse">Moore-Penrose pseudo-inverses</a> !</p>
+
+<p>To make the exposition clearer, we will define them in the more general context of linear maps $f:V\longrightarrow W$ between finite dimensional vector spaces.  The motivating question here is the simple observation that $f$ need not be invertible, but instead we could ask:</p>
+
+<p><center>
+Is it possible to define a more general notion of  <em>&ldquo;inverse&rdquo;</em>  to $f$ in a natural way ?
+</center></p>
+
+<p>the starting point of the answer is the fact that $f$ is invertible if and only if 2 things happen:  the kernel has to be  nonzero and  the image has to coincide with $W$. Now, whether or not this is the case, we can always restrict $f$ cleverly so as to avoid those two issues:</p>
+
+<div class = 'lemma'>
+ Let $U_V \subset V$ and $U_W \subset W$ be such that $\ker(f)\oplus U_V=V$ and $\textrm{im}(f)\oplus U_W=W$. Then
+ $
+f:U_V\longrightarrow \textrm{im}(f)
+ $
+is invertible
+</div>
+
+<p>In other words, at the very least, the map $f$ indeed does have a (restricted) inverse $f^\sharp: \textrm{im}(f)\longrightarrow U_V$.<br />
+Actually it turns out that we can always lift $f^\sharp$ to a map on the whole of $W$ in a unique way!<br />
+More precisely, if we let $\pi_{\textrm{im}(f)}: W \longrightarrow \textrm{im}(f)$ be the canonical projection (remember that we decomposed $W=\text{im}(f)\oplus U_W$ above), we have:</p>
+
+<div class = 'lemma'>
+There exists a unique map $f^\star : W \longrightarrow U_V$ such that $\pi_{\textrm{im}(f)}\circ f^\star=f^\sharp $ (or equivalently $f\circ f^{\star}=\pi_{\textrm{im}(f)})$
+</div> 
+We'll use a little abose of notation and write $f^\star=f^\sharp$ (since they both coincide on $\textrm{im}(f)$).<br><br>
+To reinterpret the above lemma in a slightly more elegant way however, we'll bundle the components $U_V$ and $U_W$ together and define the set $\Lambda(f)$ as :  
+
+$$
+\{(U_V,U_W) \vert \, \ker(f)\oplus U_V=V \textrm{ and }\textrm{im}(f)\oplus U_W=W  \}
+$$
+
+
+So that we now have an assignment
+
+$$
+\Phi: \Lambda(f)\longrightarrow \textrm{Hom}(W,V):(U_V,U_W)\mapsto f^\sharp
+$$
+
+We can now make the following definition:
+<div class = "definition">
+Let $(U_V,U_W) \in \Lambda(f)$.<br>
+Then we call $f^\sharp = \Phi(U_V,U_W)$ the pseudo-inverse to the triple $(U_V,U_W,f)$.<br>  
+We call $g \in \textrm{Hom}(W,V)$ a pseudo-inverse to $f$ if $g \in \textrm{im}(\Phi)$.<br> 
+We'll denote the set of pseudo-inverses to $f$ by $\Pi(f)$
+</div>
+The above definition naturally raises a few questions:<br>  
+
+
+1.  Can we find properties that characterize the set $\Pi(f)$ of pseudo-inverses to $f$?<br>
+2.  Is the assignment $\Phi$ one-to-one?<br><br>
+
+It turns out that both question can be answered postively.  
+The key insight here is to realize that we can retrieve the components $U_V$ and $U_W$ from a pseudo-inverse as follows: 
+
+<div class = "lemma">
+ if $f^\sharp$ is the pseudo-inverse to $(U_V,U_W,f)$, then we necessarily have 
+$$
+ U_V=\textrm{im}(f^\sharp) \text{ and } U_W=\ker(f^\sharp)
+ $$
+</div>
+This lemma thus allows us to write a tentative inverse to  the map $\Phi$ as
+$$
+\Psi: \Pi(f)\longrightarrow \Lambda(f): g\mapsto \big(\text{im}(g),\ker(g)\big)
+$$
+Indeed, we now have:
+<div class = "theorem">
+The maps $\Phi$ and $\Psi$ are mutual inverses.
+
+</div>
+We now go on to question 2: how do we characterize the set $\Pi(f)$ of pseudo-inverses to $f$?
+The definition of pseudo-inverse already shows that any $g \in \Pi(f)$ satisfies $f\circ g = \pi_{\text{im}(f)}$, ie $(f\circ g) =\text{Id}$ on $\text{im}(f)$. This however is not enough, snce we wish to encapsulate that $g: W\longrightarrow V$ takes values in $U_V$. Since $g$ is the inverse of $f$ on $U_V$, this implies that $(f\circ g)= \textrm{Id}$ on $U_V$ (which coincides with $\textrm{im}(g)$ by the above). We now have:  
+<div class = "theorem">
+The map $g$ is a pseudo-inverse to $f$  iff $(g \circ f)_{\text{im}(g)} =\text{Id}$ and $(f\circ g)_{\text{im}(f)}=\text{Id}$.<br> 
+In other words: $$\Pi(f)=\{g\in \textrm{Hom}(W,V)\, \vert (f\circ g)_{\textrm{im}(f)}=id\, (g\circ f)_{\textrm{im}(g)}=id\}$$
+</div>
+
+<p>This gives another characterization of the pseudo-inverse, namely as a map $\textrm{Hom}(W,V)$ that indeed behaves like an inverse to $f$ on the images of the respective functions.<br />
+Summarizing the above theorem, we know that a pseudo-inverse now corresponds to the data of two complementary subspaces $(U_V,U_W)$. Now, we may wonder if there is a canonical choice of such complements&hellip;
+In general of course the answer is no, but if we assume that $V$ and $W$ carry a little more structure, there is something that can be done&hellip;<br><br> So, let&rsquo;s now assume that $V$ and $W$ are finite-dimensional <em>inner product</em> spaces. (we&rsquo;ll denote the inner product by $\langle -,-\rangle$ throughout), then we know that for any subspace $U\subset V$, we always have $U\oplus U^\perp =V$. We can thus define:</p>
+
+<div class = 'definition'>
+The Moore-Penrose pseudo-inverse to $f$ is the pseudo-inverse $f^+$ of the triple $(\ker(f)^\perp,\textrm{im}(f)^\perp,f)$
+</div>
+
+<p>There is of course one last question tht needs to be answered: how do we pick out the Moore penrose inverse from the set of pseudo-inverses $\Pi(f)$?</p>
+
+<div class = 'theorem'>
+    The following are equivalent:
+    <ol>
+        <li>$f^+ \in \textrm{Hom}(W,V)$ is the Moore-Penrose pseudo-inverse to $f$</li>
+        <li>$(f\circ g)_{\textrm{im}(f)}=\textrm{Id}\, (g\circ f)_{\textrm{im}(g)}=\textrm{Id}$ and $(f\circ g)$ and $g\circ f$ are self-adjoint linear maps </li>
+    </ol>
+</div>
+
+<p>The above four properties are what Wikipedia takes as the definition of Moore-Penrose pseudo-inverse, but it turns out that there as a much more natural way of interpreting them!</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" data-id="c58dd37c2d6ccdc5887563c68140f1ed" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Introducing linear regression..a little differently</div>
+    </a>
+    
+
+    
+    <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Defining Supervised Learning</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "louis-de-thanhoffer" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Disecting Pseudo-inverses" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" class="title">Coordinates: Regression the way we know it</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/supervised_learning.png)" alt="Disecting Pseudo-inverses" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="title">Defining Supervised Learning</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Disecting Pseudo-inverses" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" class="title">Disecting Pseudo-inverses</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Disecting Pseudo-inverses" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/" class="title">Introducing linear regression..a little differently</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_algebra.png)" alt="Disecting Pseudo-inverses" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/" class="title">Proving Linear Regression</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-algebra" style="font-size: 12px;">linear-algebra</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-regression" style="font-size: 12px;">linear-regression</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/supervised-learning" style="font-size: 12px;">supervised-learning</a>
+        
+    </div>
+</div>
+
+
+
+
+    
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title"></h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/linear-regression">
+                    linear-regression
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/supervised-learning">
+                    supervised-learning
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	
+
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120720172-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script src="https://mathvsmachine.com/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mathvsmachine.com/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script src="https://sonoisa.github.io/xyjax_ext/xypic.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

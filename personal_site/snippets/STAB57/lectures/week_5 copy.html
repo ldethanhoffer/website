@@ -1,0 +1,37 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 5</h2>
+        In this week of classes, we began with a nice Q&A session on the upcoming midterm. Some of you asked some interesting questions!<br>
+        
+        <div class="definition">
+        Two datasets are equivalent if there exists an increasing bijection \(f:\mathbb{R}\longrightarrow \mathbb{R}\) such that
+        \[L(-\Delta)=f\circ L(-\vert \Delta')\]
+        In this case the MLE  for both datsets coincides.
+        </div>
+        In fact there are many situations in statistics where one is interested not in whether tow values are identical, but <i> similar somehow </i>. This led us to definition equivalence relations for any set \(S\) (this is used throughout mathematics)
+        <div class="definition">
+        A relation \(\sim \subset X\times X\) on a set \(X\) is an equivalence relation if it is
+        <ol>
+            <li>reflexive: \(x\sim x \)</li>
+            <li>symmetric: \(x\sim y\iff y\sim x\)</li>
+            <li> transitive: \(x\sim y,y\sim z\implies x\sim z \)</li>
+        </ol>
+        In this case, the classes \(\overline{x}=\{y\vert\,  x\sim y\}\) form a partition for the set \(X\), which is denoted \(X/\sim\) (I'm not sure I introduced this notation in class)
+        </div>
+        This led to the idea of a sufficient statistic: 
+        <div>
+        A statistic is simply a function \(T\) which takes in data (a finite subset \(\Delta \subset X\)) and returns a value in some set \(\Sigma\). A statistic is sufficient if
+        \[
+        T(\Delta)=T(\Delta')\implies \Delta\sim \Delta'
+        \]
+        (where by \(\sim \) we denote the equivalence of datasets mentioned above)
+        </div>
+        A few remarks have to be made here:
+        <ol>
+            <li>it is a fact of equivalence relations that \(x\sim y\iff \overline{x}=\overline{y}\) (see the assigment) </li>
+            <li> the book only uses a more restricted definition 6.1.1 where the funcfion \(f\) is a constant. This is not really necessary, and using a more general definition will come in very handy (as it gives us more flexibility)</li>
+            <li>There is another difference with the book in this treatment. Instead of taking in a dataset \(\Delta \subset S\), the book sneakily considers the sample space \(S^n\) instead for some \(n\) and defines a statistic as taking in some value \(s \in S^n\). (so simply replace the notation \(\Delta\) by \(s\) in the book)</li>
+        </ol>
+        To figure out when a statistic is indeed sufficient, we mentioned the factorization theorem 6.1.1
+    </div>
+</div>

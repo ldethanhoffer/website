@@ -1,0 +1,50 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 11: Th Regression Model 1</h2>
+        In this penultimate week of classes, we finally started our study of linear regression. Arguable the most important and used concept in statistics. In fact, some people are guilty of claiming that statisticians do nothing more than fitting linear regression models (of course nothing could be further from the truth.). To introduce the idea, I discussed a proble intuitively: figuring out how much rent you should pay for your appartment.<br>
+        A simple approach to this problem, would be to ask around and see what other people pay for a comparable appartment. For the sake of simplicity, let's assume you have gathered similar data \((s_i,p_i)\) for a bunch of places where \(s_i\) denotes the squre footage of the place and \(p_i\) the price of the rent. You could then plot these points in\(\mathbb{R}^2\), and it could look something like this:
+       Clearly, it seems like there is a linear relation between the \(s_i\) and \(p_i\). You thus suppose there is a line that describes this behavior given by \L(s)=(\hat{\beta}_0+\hat{\beta}_1 x\). A good estimate for the appropriate rent you should pay would then be \(L(s_0)\) where \(s_0\) is the squre footage of your place! This is exactly what linear regression allows you to do.<br>
+       It is a very interesting observation that this problem at first seems in now way like it fits in the statistical framework: there are no probabilities or no statistical models to be found here. In fact, this problem is purely geometric (fitting a line through points). It makes sense to first see f you can't develop some math to solve this problem simply using the geometry (and calculus of the plane)<br><br>
+       To this end, we assume given points \((x_i,y_i)\in \mathbb{R}^2\) and wish to find the line \(L\) wich minimizes a certain value that will stand for the total error between the points and the line. So, recall that a line has the form \(y=\beta_0+\beta_1x\). For a point \(x_i,y_i\), the error will be \(\epsilon_{i}=y_i-\beta_0-\beta_1x_i\). If we want to measure the total error for all points. it makes sense to consider \(\epsilon\) as a vector with \(n\) components and to compute its magnitude (ie the norm) \[\vert \vert \epsilon\vert \vert =\sqrt{\sum_i \epsilon^2_i}=\sqrt{\sum (y_i-\beta_0-\beta_1x_i)^2}\]
+       In other words, the solution to our geometric problem are two values \(\hat{\beta}_0,\hat{\beta}_1\) such that \[(\hat{\beta}_0,\hat{\beta_1})=\text{argmin}_{\beta_0,\beta_1 \vert \vert \epsilon\vert \vert\]
+       To find these values, we recall that it suffices simply to look at the function \[\vert \vert \epsilon \vert \vert\] as a function of \(\beta_0,\beta_1\) and to find the values where the gradient is zero:
+       <div class="lemma">
+       Let \[F: (\beta_0,\beta_1)\longrightarrow \sum_i (y_i-\beta_0-\beta_1x_i)^2\]
+       Then \(\nabla F(\beta_0,\beta_1)=(0,0)\) iff \[(\beta_0,\beta_1)=(\overline{x}-\beta_1\overline{y},\frac{\sum_i (x_i-\overline{x}\cdot (y_i-\overline{y]}))}{\sum_i (x_i-\overline{x})})^2=(\overline{y}-\beta_1\overline{y},\frac{\overline{xy}-\overline{x}\overline{y}}]}{\overline{x^2}-\overline{x}^2})\]
+       </div>
+       In other words, rephrasing this problem geometrically, the above result shows:
+       <div class="theorem">
+       For points \((x_i,y_i) \in \mathbb{R}^2\), the linear regression is given by the line \[\hat{\beta}_0+\hat{\beta}_1 x\]
+       Where
+       \[\beta+1=\frac{\overline{xy}-\overline{x}\overline{y}}]}{\overline{x^2}-\overline{x}^2}) \text{ and }\beta_0=\overline{y}-\beta_0\overline{x}\]
+       </div>
+       This is rather satisfying for a few reasons, not least of which the fact that there is a nice statistical interpretation to these numbers:<br>
+       First, the expression for \(\hat{\beta}_1\) can be written as
+       \[\hat{\beta}_1=\frac{c^2}{s^2}\]
+       Where \(c^2\) is the sample covariance of the data and \(s^2\) is the sample variance. \(\hat{beta}_0\) in turn is the sample mean of the data \(y_i-\hat{\beta}_1x_i\) (another easy way to remember these formulas).<br> 
+       More importantly we showed in class that \[\text{argmax}\prod_i\bigg(\frac{1}{\sqrt{2\pi\sigma^2}}\bigg)\exp\bigg(\frac{1}{2\sigma^2}(y_i-\beta_0-\beta_1 x_i-)^2\bigg)\]
+       In other words, if for any choice of parameters \(\beta_0,\bet_1\) we consider the random variable \[\mathbb{R}^2\\longrightarrow\mathbb{R}:(x,y)\longrightarrow \epsilon(x,y)=y-\beta_0-\beta_x\]
+
+       We further wish to investigate the properties of these various quantities as <i> estimators</i>. To this end, we now consider the labels as RV's. More precisely, for any datapoint \(x_i\), we consider the RV \[Y_i=\beta_0+\beta_1 x_i+\epsilon_i .\text{where .} \epsilon_i\sim N(0,\sigma^2)\] Furthermore, we have: 
+        \[(\hat{\beta}_0,\hat{\beta}_1)=\bigg(\overline{Y}-\hat{{\beta}}_1\overline{x},\sum w_i Y_i\bigg)\]
+        </div>
+        We now have:
+        <div class="theorem">
+        For any choice of parameters \((\beta_0,\beta_1)\)
+        <ol>
+          <li>\(\mathbb{E}[\hat{\beta}_0]=\beta_0\) (ie \(\hat{\beta}_0\) is an unbiased estimator of the characteristic \(\beta_0\) )</li>
+          <li>\(\mathbb{E}[\hat{\beta}_1]=\beta_1\) (ie \(\hat{\beta}_1\) is an unbiased estimator of the characteristic \(\beta_1\))</li>
+          <li> \(Var[\hat{\beta}_0]=\sigma^2\bigg(\frac{1}{n}+\frac{\overline{x}}{\sum (x_i-\overline{x})^2} \bigg)  \)</li>
+          <li> \(Var[\hat{\beta}_1]=\frac{\sigma^2}{\sum (x_i-\overline{x})^2}\)</li>
+        </ol>
+        </div>
+        <div class='proof'>
+        To show the second claim, we have \[\mathbb{E}[\hat{\beta}_1]=\sum  w_i \mathbb{E}[Y_i]=\sum w_i \mathbb{E}[Y_i]=\sum w_i(\beta_0+\beta_1 x_i)=\beta_1 \] 
+        the first claim follows from the second.<br>
+        To compute the variance of \(\hat{\beta}_1\), we note:
+        \[Var[\hat{\beta}_1]=Var[\sum w_i Y_i]=\sum w_i^2 Var[Y_i]=\sum w_i \sigma^2=\frac{\sigma^2}{\sum (x_i-\overline{x})^2}\]
+        We leave the computation of \(Var[\hat{\beta}_0]\) as a (long exercise).
+        </div>
+        
+    </div>
+</div>

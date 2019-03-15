@@ -1,0 +1,130 @@
+ <div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 10</h2>
+        <p >In this 10th week of classes, we continued our study of proper graph colorings.  In this course, we will treat two key questions regarding colorings:
+        <ol>
+			<li> what is the least amount of colors necessary to construct a proper coloring on a graph? (the chromatic number)
+			<li> How many proper colorings with a given amount of colors can a graph have? (the chromatic polynomial)
+		</ol>
+        </p>
+        <p >
+	    In week 9, we had aready covered quite a bit of material with regards to the first question. As such, we were ready to apply the major techniques to determine the chromatic number of planar graphs in particular.<br>
+		Here, as an appetizer, I quickly discussed the following theorem:
+		<div class="theorem">
+		Any planar graph has a 6-coloring
+		</div>  
+		<div class="proof">
+		The proof relied on two key facts:<br> 
+		<ol>
+		<li>
+		A planar graph has a vertex of degree 5 (this was an assignment question as well...)<br>
+		To see why this is true, we recalled Euler's formula for planar graphs \(E-V+f=2\), which in turn led to the inequality \(E\le 3v-6\). Now if all vertices have at least 6 neighbors, then applying the handshake lemma, \(\sum_{v \in V(G)} d(v)=2E\), we conclude \(6V\le 2E\le 6V-12\), a clear contradiction.<br>
+		<li>
+		if a graph has a vertex of degree \(d\), it has a coloring of degree \(d+1\). Indeed, we could argue on the number of vertices \(V\). This is clearly true if \(V\le d\). And by induction, if you assume it is true for a graph with \(V=k\) vertices, then for any graph with \(k+1\) vertices, simply delete the vertex \(v\) with \(d\) neighbours, to obtain a \(d+1\)-coloring by induction. In this coloring, we only use at most \(d\) colors to color all the neighbors of \(v\) and we can thus the remaining one if necessary to color the remaining vertex \(v\).<br>
+		</ol>
+		Combining both  statements yields the result
+		</div>  
+		After this quick and dirty result, we went on to show how to improve the argument:
+		<div class="theorem">
+		Any planar graph has a 5-coloring
+		</div>
+		<div class="proof">
+		By the previous argument, we know that any planar graph \(G\) has a vertex \(v\) of degree \(\le 5\). If in fact it has degree \(< 5\), using the previous argument again reveals a 5-coloring. Let's thus assume \(d(v)=5\). We can also assume the 5 neighbors all have different colors. Otherwise, we can remove \(v\) and assume the result holds true on \(G\setminus\{v\}\) by induction which yields  a 5-coloring. Since at most 4 colors are used to color the neighbors in this scenarion, we can safely use the 5th color if necessary to color \(v\) and hence obtain a 5-coloring on \(G\).<br>
+		Hence, in \(G\), we can find a vertex that looks like this:
+        <div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/5-coloring_1.png">
+        </div>
+        To show that the graph is 5-colorable in this scenario as well, our only option is to recolor the the neighbors cleverly in such a way that we maintain a proper coloring throughout the graph and only use 4 different colors for all the neighbors.<br> 
+        We do this as follows: consider the subgraphs \(G_i, \, 1\le 5\) consisting of all vertices connected to the vertex \(i\) and colored \(i,i+2 \mod 4\) (for example \(G_3\) consists of all vertices for which there exists a path to vertex \(1\) and which are colored \(1\) or 3):<br>
+        <div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/5-coloring_2.png">
+        </div>
+        If there is no path between 1 and 3 using only colors 1 and 3, then by construction \(G_1\) and \(G_3\) are disjoint. Now simply switch all colors in \(G_1\) (ie 1 becomes 3 and 3 becomes 1):
+         <div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/5-coloring_3.png">
+        </div>
+        This is clearly still a coloring (as any vertex adjacent to a vertex in \(G_1\) must have color 2,4 or 5) and we have now have two neighbors with color 3! We give the vertex \(v\) the color 1.<br><br>
+        It remains to figure out what to do in case there IS a path \(p\) between vertices 1 and 3 which only uses colors 1 and 3:
+        <div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/5-coloring_4.png">
+        </div>
+        As the picture above shows, this implies that any path  \(q\) between 2 and 4 that uses only colors 2 and 4 must cross \(p\). Since the graph is planar (here's the planarity again..), this hypothetical path between 2 and 4 crosses \(p\) in a vertex, but this means that this vertex would have to be  colored both using 1 or 3 as well as 2 or 4! a contradiction...<br> We conclude there is no \(2-4\) path in this case, and,  \(G_2\) and \(G_4\) are disjoint now, we again simply switch the colors in \(G_2\). The neighbors now have 4 colors and we can use the color 2 to color \(v\).
+         <div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/5-coloring_5.png">
+        </div>
+        </div>
+		</p> 
+	    <p>
+	    This is about as far as we managed to go. However it is important to note that an even stronger statement is true:
+	    <div class="theorem">
+	    Any planar graph is 4-colorable
+	    </div>
+	    This result is one of the most famous ones in the whole of mathematics. Like many other famous problems it is both quite simple to state and very difficult to prove. In fact it remained open for a  about 130 years (it was originally conjectured by a mathematician named Guthrie in 1852 as he was trying to color the map of England). In fact, it was not until the 1980's that Appel and Haken claimed a proof. They did this by reducing infinitude of possible scenarios to 1936 different possibilities, and then checked case by case (using microfilm)<br>. It is still a point of debate among mathematicians to see if reducing something to such a large amount of cases and checking them  by hand or computer consists of a "proof"<br>. It is worth mentioning that since then mathematicians have made significant improvement on the problem by streamlining Appel and Haken's approach. One improvement has led to a reduction to 633 cases instead (a more human number), another improvement was to build a so-called "proof assistant" which constructs a proof...<br><br>
+	    Finally, as part of the assigment I asked you to modify this whole argument to do a little better under an additional hypothesis:
+	    <div class="theorem">
+	    Any planar graph without triangles has a 3-coloring
+	    </div>
+	    </p>
+	    After our discussion of the chromatic number, we went on to the second major question regarding proper graph colorings. How many colorings does a graph have with a given number of colors?
+	    To motivate this question, I briefly discussed the following:
+	    <div class="centered-bubble">
+	     Birthday problem: suppose you put \(n\) people in a room. What is the probability of two people having the same birthday...<br>
+	     </div>
+	    One way to solve this question is to ask what the probability is of them all having different birthdays instead. You would then simply wish to know how many proper colorings the complete graph on \(n\) vertices has versus the independent graph on \(n\) vertices..(it turns out there is more than a 1/2 chance of two people having the same birthday if \(n>23\))
+	    To analyze questions such as this one, we introduced the following tool:
+	    <div class="definition">
+	    For a graph \(G\) and a \(t\in \mathbb{N}\), \(P(G,t)\) denotes the number of proper colorings on \(G\) with \(t\) colors.
+	    </div>  
+	    We immediately looked at a few examples which we could compute by hand:
+	    <div class ="lemma">
+	    we have
+	    <ol>
+	    	<li> \(P(K_n,t)=t\ldots (t-n+1) \)
+	    	<li>\(P(G,t)=t^n\) if \(G\) consists of \(n\) vertices and no edges
+	    	<li> \(P(p_n,t)t(t-1)^{n-1}\) if \(p_n\) is a path on vertices
+	    </ol>
+	    </div>
+	    We then asked the question whether it was possible to find a formula for \(C_n\), an \(n\)-cycle by hand..Even in the case \(n=4\), this didn't seem very obvious (as it depended on whether vertex and 1 and 3 had the same or different colors etc..).<br>
+	    Luckily, there is a very nice way of computing this number by use of the following lemma:
+	    <div class="lemma">(deletion-contraction)
+	    Let \(e \in E(G)\) and \(G_e\) denote the graph with the edge \(e\) contracted. Then
+	    \[P(G,t)=P(G\setminus{e},t)-P(G_e,t)\]
+		</div>
+		<div class="proof">
+		Let \(e\) have endpoints \(u,v\). Then a proper coloring on \(G\setminus{e}\) is the same as a proper coloring on \(G\) except that we allow \(u\) and \(v\) (which are adjacent in \(G\)) to have the same color. Hence the number of proper colorings on \(G\) equals the number of proper colorings on \(G\setminus{e}\) minus the ones where the color coincides on \(u\) and \(v\). In the contracted graph, \(u\) and \(v\) have become a single vertex, and all other adjancencies have remained the same. Hence this number is precisely the number of proper colorings on \(G_e\) and the result is proven. 
+		</div>
+		This lemma has a few important corollaries:
+		<div class="theorem">
+		\(P(G,t)\) is a polynomial in the variable \(t\).
+		</div>
+		<div class="proof">
+		This is very easily seen by induction on the number of edges: if \(E=0\), we have already shown the result above. If \(E>0\), pick \(e \in E(G)\).<br>
+		By induction, we can assume the result holds true for \(P(G\setminus{e},t)\) and \(P(G_e,t)\). Now simply note that \(P(G,t)\) is a sum of two polynomials by deletion-contraction.
+		</div>
+		this theorem motivates the following nomenclature:
+		<div class="centered-bubble"> \(P(G,t)\) is called the chromatic polynomial.</div>
+		Another important corollary of deletion contraction is the fact that we are able to compute the chromatic polynomial in some more cases (including the cycle!)
+		<div class="theorem">
+		Let \(T_n\) be a tree on \(n\) vertices. Then\[P(T_n,t)=t(t-1)^{n-1}\]
+		</div>
+		<div class="proof">
+		The claim is clearly true if \(E=1\).<br>
+		By induction, we assume that \(E>1\) now.<br>
+		Any tree has a vertex \(v\) of degree 1 (this is part of next week's assignment). Let \(e\) denote the edge coming out of \(v\). Then we apply contraction-deletion on the edge \(e\). We can see that \(G\setminus \{e\}\) consists of a tree with \(n-1\) vertices together with a single disjoint vertex. The contracted \(G_e\) is simply a tree with \(n-1\) vertices:
+		<div class="lecture-image">
+        <img src="assets/MATC32/lectures/week_10/chrom_poly_1.png">
+        </div>
+        By induction \[P(G\setminus\{e\},t)=t(t-1)^{n-2}\,\, \text{ and }P(G_e,t)=t(t-1)^{n-2}\]
+        so that \[P(G,t)=t(t-1)^{n-2}-t(t-1)^{n-2}=t(t-1)^{n-1}\]
+		</div>
+		Another example of such a computation:
+		<div class="theorem">
+		Let \(C_n\) be a cycle. then \[P(C_n,t)=(t-1)^n+(-1)^n(t-1)\]
+		</div>
+		<div class="proof">
+		Let \(E=3\). Then \(P(C_3,t)=t(t-1)(t-2)\) as we computed above. It's easy to see that this formula agrees with the above.<br>
+		By induction we now consider an \(n\)-cycle and remove an edge \(e\). Then \(C_n\setminus\{e\}=p_n\) a path on \(n\) vertices (whose chromatic polynomial we computed above), moreover \((C_n)_e=C_{n-1}\). We now compute using induction: \[P(C_n,t)=t(t-1)^n-\bigg((t-1)^{n-1}+(-1)^{n-1}(t-1)\bigg)=(t-1)^n-(-1)^{n-1}(t-1)=(t-1)^n+(-1)^n(t-1)\]
+		</div><br>
+		That's (roughly) all we covered this week. Feel free to have a little fun with deletion-contraction to see what other graphs you can compute the chromatic number of!!
+    </div>
+</div>

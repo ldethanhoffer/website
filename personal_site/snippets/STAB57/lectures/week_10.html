@@ -1,0 +1,24 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 5</h2>
+       In this 10th week of class, we continued to examine the types of inference we can make using Bayesian statistics after recording data \(s\. As mentioned before, inferences come in three types: estimating a typical value for the parameter, finding an interval which we can expect the true value of the parameter to be in and testing whether a parameter takes on a certain true value.<br>
+       We already saw an example of the first type of inference and I gave another example in class based off a lemma which you should try and prove as part of your assigment:
+       <div class="lemma">
+       Assume that a probability dsitribution is symmetric around some value \(\mu\) i.e. the density function satisfies \[f(x+\mu)=f(\mu-x)\]
+       Assume the density function has a mean \(mu_0\). Then \(mu_0=\mu\) and concides with the mode as well.
+       </div>
+       The location normal model provides an illustration of this situation: recall that here we consider a satsitical model wth densities \(f_\mu(x)\sim N(\mu,\sigma^2)\) where the mean is distribute according to a prior \(\mu\sim N(\mu_0,\tau_0^2)\). We recalled that the posterrior density then satisfies\[\omega(\mu\vert s)\sim N(\bigg(\frac{1}{\tau^2_0}+\frac{n}{\sigma_0^2}\bigg)^{-1})(\frac{1}{\tau^2}\mu_0+\frac{n}{\sigma^2})\overline{x},\bigg(\frac{1}{\tau_0^2}+\frac{n}{\sigma^2}\bigg)^{-1}\]
+       This meant that in this case the two estimated values of interest (posterior mean and posterior mode) concided and were given explicitely by \[\frac{1}{\tau^2_0}+\frac{n}{\sigma_0^2}\bigg)^{-1})(\frac{1}{\tau^2}\mu_0+\frac{n}{\sigma^2})\overline{x}\]<br>
+       To motivate the second form of inferences, I discussed the definition of a credible interval with a little thought experiment:
+       <civ class="definition">
+       A credible interval of significance \(\gamma\) given \(s\), is an interval \(C(s)\) such that
+       \[
+       \Pi(\psi(\theta)\in C(s)\vert s)\ge\gamma
+       \]
+       </div>
+       Since a bayesian model is a statistical model in particular, we can olso consider confidence interval like we did a few weeks ago. The question thus arises as to what the difference is exactly. This is where the thought experiment comes in: We are given 4 jars each filled with chocolate chip cookies all having either 0,1,2,3 or 4 chips. We wish to make good gesses as tow which jar a cookie comes out of based on the number of chocholate chips. The data is represented in the table below.
+       If we were to compute a 70% confidence interval, we would assoscate to each outcome a number of jars ssuch that the actual jar lies in the interval  we guessed about 70% of the time. i.e. whatever jar we picked, the probability that a chip has a confidence interval that contains that jar is 70%. These intervals are pistured below.<br>
+       Note however that this confidence interval answers a different question! Indeed, to see this, we assume that each jar is as likely to be picked, so that we endow the model with a uniform prior. Then it is easy to see that \(P_\theta=\Pi(-\vert)\)
+    </div>
+
+</div>

@@ -1,0 +1,61 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 12: Analyzing Regression</h2>
+        This final week of classes was dedicated to studying the various statistical benchmarks that will allow us to make conclusions about how good a regression model fits two random variables \(X\) and \(Y\).
+        To this end, we recall that in the regression model, we are given data \((x_i,y_i)\) and we assume that the labels (or 'responses') \(y_i\) are drawn from random variables that satisfy \[Y_i=\beta_0+\beta_1x_i+\epsilon_1\] where \(\beta_0,\beta_1\) is any choice of paramaters \(\in \mathbb{R}^2\) and \(\epsilon\sim N(0,\sigma^2)\). Viewing  \(\beta_0,\) and \(\beta_1\) as the parameters of a statistical model led us to the computation of the associated MLE (\(\hat{\beta}_0,\hat{\beta}_1)\) given by
+        \[\hat{\beta}_1=\sum w_i y_i, \text{ where } w_i=\frac{x_i-\overline{x}}{\sum_j (x_j-\overline{x})}\text{ and  }\hat{\beta_0}=\overline{y}-\hat{\beta}_0\overline{x} \]
+        This in turn leads to predictions for the labels \(\hat{y}_i=\hat{\beta_0}+\hat{\beta}_1x_i \).<br>
+        As a first measure of fit, we can consider the sum of squares of the residuals:\[SSE=\sum \hat{\epsilon}^2_i=\sum (y_i-\hat{y}_i)^2\]
+        We will also be interested in the variability (up to a constant factor) of the predicted values \(\hat{y}_i\)and the response values  (or labels) \(y_i\). These are called the regression sum of squares and total sum of squares respectively: \[SSR=\sum_i (\hat{y}_i-\overline{\hat{y}})\]
+        \[SST = \sum_i (y_i-\overline{y})\]
+        The SSR in particular can be simplified a little, but before we do that, we prove the following lemma:
+        <div class='lemma'>
+        We have 
+        <ul>
+          <li> \( \sum_i \hat{\epsilon_i}=0\) </li>
+          <li>\(\sum_i \hat{y_i}\hat{\epsilon_i}=0\) </li>
+          <li> \(\overline{y}=\overline{\hat{y}}\)
+        </ul>
+        </div>
+        <div class="proof">
+          For the first claim , we note that \[ \sum_i \hat{\epsilon}_i = \sum_i (y_i-\hat{\beta}_0-\hat{\beta}_1 x_i)= n(\overline{y}-\hat{\beta}_0-\hat{\beta}_1\overline{x})=0\]
+          by definition of \(\hat{\beta}_0\). For the second claim we first plan to show that \(\sum_i x_i\hat{\epsilon}_i=0\).<br> 
+          This turns out to be equivalent to \(\frac{\partial}{\beta_1} L\bigg((x_1,\ldots x_n)\vert (\beta_0,\beta_1)\bigg)=0\), which we know to be true from last week. Concluding that \(\sum_i \hat{y}_i\epsilon_1=0\) is rather straightforward now since 
+          \[(\hat{\beta}_0+\hat{\beta}_1x_i)\hat{\epsilon}_i=\beta_0\sum_i\hat{\epsilon}_i+\hat{\beta}_1\sum_ix_i\epsilon_i=0+0=0\]
+          The last claim follows from the first by dividing by \(n\)
+        </div>
+        <div class="corollary">
+          We have \[SSR=\sum_i (\hat{y}_i-\overline{y})\]
+        </div>
+        <div class='corollary'>
+          We have \[SST=SSE+SSR\]
+        </div>
+        <div class='proof'>
+          Clearly \[SST=\sum (y_i-\hat{y}_i+\hat{y}_i-\overline{y})^2=\sum_i (y_i-\hat{y}_i)^2+2\sum(y_i-\hat{y}_i)(\hat{y}_i-\overline{y})+\sum(\hat{y}_i-\overline{y})^2\]
+          The first term in this sum is SSE and the last is SSR by the lemma. Finally, the middel term is zero as it is equal to \[2\sum \epsilon_i(\hat{y}_i-\overline{y})=0-0\]
+          by the lemma again.
+        </div>
+          This yields yet another important measure for the efficiency of a linear regression model:
+        <div class="definition">
+        The coefficient of determination  is the value \[R^2=\frac{SSR}{SST}\]
+        </div>
+        <div class="lemma">
+        The \(R^2\)-coefficient has the following properties:
+        <ul>
+          <li>\(0\le R^2\le 1\)</li>
+          <li>\(R^2=1-\frac{SSE}{SSR}\)</li>
+          <li>\(R^2=1\) iff the predictions coincide with the responses</li>
+          <li>\(R^2=0\) iff \(\hat{\beta_1}=0\)</li>
+        </ul>
+        <div class="proof">
+          These are all very easily verified
+        </div>
+        We now wish to investigate the properties of these quantities as estimators. I.e.  after  choice of parameter \((\beta_0,\beta_1)\) we consider the random variables \[Y_i=\beta_0+\beta_1 x_i +\epsilon_i \text{ where } N(0,\sigma^2)\]
+        And simply replacing the \(y_i\)'s with \(Y_i\) now turns SSE,SSR, SST and \(R^2\) into random variables. Unfortunately, it is not tue that  SSE forms an un biased estimator for \(\sigma^2\) (compare with the bias of the sample variance estimator). However, we do have:
+        <div class='lemma'>
+        Let \(s^2=\frac{1}{n-2}SSE\). Then \(\mathbb{E}[s^2]=\sigma^2\), ie \(s^2\) is an unbiased estimator for the variance
+        </div>
+        The factor \(\frac{1}{n-2}\) has an intuitive interpretation (thei requires a little B24 knowledge): if we wish to consider the subspace of <i>residuals  \((\hat{\epsilon}_i)_1^n=(\hat{y}_i-y_i)_1^n\) </i> in \(\mathbb{R}^n\) for any choice of labels \(y_i \in \mathbb{R}^n\). By the lemma above, this subspace satisfies tow linear equations \(\sum \epsilon_i=0\) and \(\sum x_i \epsilon_i=0\). This space is thus \(n-2\) dimensional. In general, to make an estimator unbiased, one should divide by the 'dimension of the subspace it spans' also referred to as the degrees of freedom.
+    </div>
+
+</div>

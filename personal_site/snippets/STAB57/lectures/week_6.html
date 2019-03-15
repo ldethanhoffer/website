@@ -1,0 +1,83 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 5</h2>
+        In this week of classes, we began with a nice Q&A session on the upcoming midterm. Some of you asked some interesting questions!<br><br>
+        After that I recalled the general technique to find the MLE  \(\hat{theta}\) of a statistical model \(\Theta\Rightarrow S\) given data. (it is worth mentioning that for the following lectures it will be easier to let data be an element \(s\in S^n\) and to omit the \(n\) to easen notation). The steps are the following:
+        <ol>
+            <li>compute the likelihood function \(L(\theta\vert \Delta)=\prod_{s\in \Delta}f_\theta(x)\) </li>
+            <li> simplify if necessary and compute the \(\ln\) of the function</li>
+            <li>compute the stationary points</li>
+            <li>argue why the stationary point is an MLE</li>
+        </ol>
+        I illustrated the example with a Bernouilli statistical model \(P_\theta \sim \text{Bernouilli}(\theta)\). It turned out in this case that the MLE  \(\hat{\theta}(s)\) coincided with the sample mean \(overline{s} \) (again...).<br>
+        We then turned our attention to the role of sufficiency. More precisely, we gave an elegant definition of data reduction: recall that we called two functions  \(f, g:S\longrightarrow \mathbb{R}\)equivalent if there exists a 1-1 ascending function \(h\) such that \(f=h\circ g\). A statistic \(T:S\longrightarrow R\) is  sufficient if \[T(s)=T(s')\implies L(-\vert \s)\sim L(-\vert \s')\]
+        This meant in particular that the MLE's of the two datasets are the same. The advntage of this approach is that we clearly see that a sufficient statistic now in turn defines an equivalence relation on \(S\)  in the form of \(\s\sim \s'\iff T(\s)=T(\s')\)
+        We conclude that \(S\) gets partitioned into subsets in such a way that two datasets \(\s, \s'\) belonging in the same subsets have equivalent likelihood functions (in particular the same MLE).<br> 
+        I recalled that the factorizaion theorem is the tool of choice to determine sufficiency.<br>
+        This partition is called the data-reduction of the sufficient statistic (since we don't need to know the complete information of all \(\s \in S\), just what the classes look like to make inferences from the MLE).
+        This led to a natural question: How big can we make those classes? (the bigger, the better)
+        <div class= "theorem">
+            Let \(U\) be a sufficient statistic. Then the following are equivalent:
+            <ol>
+                <li>the data-reduction of \(U\) is maximal</li>
+                <li>for any other sufficient statistic, \(T\), there exists another function \(h\) such that \(U=h\circ T\) </li>
+                <li> \(T(\Delta)=T(\Delta')\iff L(-\vert \Delta)\sim L(-\vert \Delta')\)</li>
+            </ol>
+        </div>
+        I went on to explain how if the MLE is sufficient, it trivially had to be minimal!
+        <div>
+        Finally, we introduced the next statistial tool of interest: inferences based of  the MLE. To this end, it was worth introducing a little more vocabulary:
+        <div class="definition">
+        A character conssits of a function \(\psi: \Theta\longrightarrow \mathbb{R}\)
+        An estimator is a function \(T:S\longrightarrow \mathbb{R}\). 
+        </div>
+        The typical example being the characteristic \(\psi(theta)=\mathbb_\theta{E}[S]\) with estimator \(\overline{s}=\frac{1}{n}\sum s\)
+        </div>
+        The core idea here being that we wish to find good estimators for characteristics (ideally using the MLE). Before we explain how to find them, we talked about what good means in this context:
+        <div class="definition">
+        For any \(\theta \in \Theta\), characteristic \(psi\) and estimator \(T\), the mean squared error is given by \[\text{MSE}_\theta(T)=\mathbb{E}[T-\psi(\theta)]\]
+        </div>
+        I meantioned the MSE can be large for two reasons: either the estimator itself is not a very nice function, or it is, but it doesnt do the job of estimating the characteristic well enough. More precisely:
+        <div class="theorem">
+            We have the following formula:
+            \[\text{MSE}_\theta(T)=\text{Var}_\theta(T)+\bigg((\mathbb_\theta{E})[T]-\psi(theta)\bigg)^2\]
+        </div>
+        The term \(\mathbb_\theta{E}(T)-\psi(\theta)\) is called the bias and measure how well \(T\) estimates \(psi(\theta)\). If the bias is \(0\), we say the estimator is unbiased, in which case the MSE coincides with the variance.<br>
+        The location normal and location-scale normal model provide two interesting examples of this:
+        Recall that for the location normal model, we consider a fixed variance \(\sigma_0^2\) and variable mean \(\mu\) where the probability measures on \(S\) are given by \(P_\mu \sim N(\mu,\sigma_0^2\). The likelihood function is then given by \[L(\mu\vert x_1,\ldots ,x_n)=\bigg(\frac{1}{\sqrt{2pi\sigma_0^2}}\bigg)\exp\big(\frac{-n(\overline{x}-\mu} )}{2\sigma_0^2}\big) \] 
+        and the MLE is given by \(\hat{mu}(x_1\ldots x_n)=\overline{x}\). We wish to estimate the characteristic \(\mu\) using the estimator $\overline{X}(x_1,\ldots x_n=\overline{x}$. Since \(\mathbb{E}[\overline{X}]=\mu\), we conclude that the estimator is unbiased. Moreover, the variance of \(\overline{X}\) is given by \(\Var(\overline{X})=\frac{\sigma_0^2}{n}\). It follows that \[\text{MSE}_\mu(\overline{X}=\frac{\sigma_0^2}{n}\]
+        Note that this is independent of the parameter \(\mu\)!<br><br>
+        To complicate things a little, we looked at the location-scale normal model (where the variance is no longer known and fixec). Here the likelihood is
+        \[L((\mu,\sigma)\vert x_1,\ldots ,x_n)=\bigg(\frac{1}{\sqrt{2\pi\sigma^2}}\bigg)\exp\big(\frac{-n(\overline{x}-\mu} )}{2\sigma_0^2}\cdot \exp(\frac{-(n-1)}{2\sigma^2}s^2)\big) \] 
+        and the MLE is given by
+        \[
+        \hat{(\my,\sigma^2)(x_1,\ldots , x_n)=\big(\overline{x}, \frac{n-1}{n}\s^2 big)}
+        \]
+        Similarly to the above, we obtain that \(\mathbb{E}[\overline{X}=\mu\) and \(\Var(\overline{X})=\frac{\sigma^2}{n}\), so that for the characteristic \(\psi(\mu,\sigma)=\mu\), we have \[\text{MSE}_{(\mu,\sigma^2)}(\overline{X})=Var(\overline{X})=\frac{\sigma^2}{n}\]
+        and the estimated MSE is given by
+        \[
+        \text{MSE}_{(\overline{x},\frac{n-1}{n}s^2)}(\overline{X})=\frac{n-1}{n^2}s^2\sim \frac{s^2}{n}
+        \]
+        Note that this converges to \(0\) as \(n\to infty\) <br><br>
+        We then went on to discuss another property of estimators: consistency. Ther are thwo separate incarnations of this definition:
+        <div class="definition">
+        We say that a sequene of estimators \((T_i)_i\) is consistent for the characteristic in probability if \[ \lim_i P(\vert T_i-\psi(\theta)\vert\ge \epsilon)=0\]
+        </div>
+        An important example of this phenomenon is the so-called weak law of large numbers (4.2.1):
+        <div class="theorem">
+        Let \((T_i)_i\) be a sequence of independent estimators all with the same mean \(\mu \) and variance \(\le \sigma^2\) for some constant \(\sigma^2\). Then the sequence \(\overline{T_i}=\frac{1}{n}\sum_j\le i} T_j\) is consistent in probability with the characteristic \(\mu\)
+        </div>
+        <div class = "definition">
+        We say that a sequence of estimators \((T_i)_i\) is consistent for the characteristic almost surely if\[lim_i P(T_i=\psi(\theta))=1\]
+        </div>
+        the relation between both concepts is as follows:
+        <div class= "theorem">
+        if a sequence of estimators is consistent with a characteristic almost surely, then it is also consistent in probability
+        </div>
+        In fact, we can conclude the weak law of large numbers from the stron one 4.3.2 wich states:
+        <div class="theorem">
+        Let \((T_i)_i\) be a sequence of independent estimators all with the same mean \(\mu \). Then the sequence \(\overline{T_i}=\frac{1}{n}\sum_j\le i} T_j\) is consistent almost surely with the characteristic \(\mu\)
+        </div>
+    </div>
+
+</div>

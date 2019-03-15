@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Introducing Regression..Differently &middot; </title>
+    <meta name="generator" content="Hugo 0.27.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Math vs. Machine">
+    
+      <meta name="description" content="">
+    
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="canonical" href="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/"/>
+    <link rel="icon" href="https://mathvsmachine.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mathvsmachine.com/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/style.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/monokai.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/fancybox/jquery.fancybox.css">
+    
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/theorems.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Introducing Regression..Differently" />
+<meta property="og:description" content="Anyone who&rsquo;s taken an intro to statistics class is familiar with the basic concept of linear regression&hellip;
+The quintessential example is guessing house prices: you go around houses in the neighborhood collecting some data on each house (say the square footage, the number of bedrooms, the size of the yard and the age of the house) and ask your neighbor the selling price for their house. The idea is to estimate the selling price of your own house based off that info&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/" />
+
+
+
+<meta property="article:published_time" content="2017-05-20T11:58:06&#43;02:00"/>
+<meta property="article:modified_time" content="2017-05-20T11:58:06&#43;02:00"/>
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Introducing Regression..Differently">
+<meta itemprop="description" content="Anyone who&rsquo;s taken an intro to statistics class is familiar with the basic concept of linear regression&hellip;
+The quintessential example is guessing house prices: you go around houses in the neighborhood collecting some data on each house (say the square footage, the number of bedrooms, the size of the yard and the age of the house) and ask your neighbor the selling price for their house. The idea is to estimate the selling price of your own house based off that info&hellip;">
+
+
+<meta itemprop="dateModified" content="2017-05-20T11:58:06&#43;02:00" />
+<meta itemprop="wordCount" content="1140">
+
+
+
+<meta itemprop="keywords" content="Linear Regression," />
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Introducing Regression..Differently"/>
+<meta name="twitter:description" content="Anyone who&rsquo;s taken an intro to statistics class is familiar with the basic concept of linear regression&hellip;
+The quintessential example is guessing house prices: you go around houses in the neighborhood collecting some data on each house (say the square footage, the number of bedrooms, the size of the yard and the age of the house) and ask your neighbor the selling price for their house. The idea is to estimate the selling price of your own house based off that info&hellip;"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mathvsmachine.com" id="logo">
+          
+          <span class="site-title"></span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png">
+      
+      <h2 id="name">Math vs. Machine</h2>
+      <h3 id="title">Louis de Thanhoffer de Volcsey</h3>
+      
+      
+          <a id="follow" href="https://louisdethanhoffer.com">
+              Website
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        5
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          3
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/ldethanhoffer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+<td><a href="//linkedin.com/in/louisdethanhoffer" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+          <td><a href="https://mathvsmachine.com/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://mathvsmachine.com/banners/linear_learner_cost.png" class="article-banner">
+        
+
+        
+
+<header class="article-header">
+    <a href="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/">
+    <h1 class="article-title" itemprop="name">
+        Introducing Regression..Differently
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+            &middot;
+            
+            1140
+            words
+            &middot;
+            
+            
+            
+        
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-list-alt"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>Anyone who&rsquo;s taken an intro to statistics class is familiar with the basic concept of linear regression&hellip;<br />
+The quintessential example is guessing house prices: you go around houses in the neighborhood collecting some data on each house (say the square footage, the number of bedrooms, the size of the yard and the age of the house) and ask your neighbor the selling price for their house. The idea is to estimate the selling price of your own house based off that info&hellip;<br />
+How?<br />
+Well the data of each house really consists of a point in the vector space $\mathbb{R}^4$, the price of the house in turn is a value in the vector space $\mathbb{R}$. The technique of linear regression now computes a linear map $h: \mathbb{R}^4\longrightarrow \mathbb{R}$ that <em>&lsquo;best describes the data&rsquo;</em> .Your own selling price should now be the value of $h$ if you plug in the paramaters of your own house.</p>
+
+<p>In this post on linear regression, we intend to do two things:</p>
+
+<ol>
+<li>Show you how we can take this example and generalize it immensely</li>
+<li>Describe how this generalization fits nicely in the language of <a href="{{&lt; relref  &quot;Defining_Supervised_Learning.md&quot; &gt;}}">learners</a><br /></li>
+</ol>
+
+<p>Let&rsquo;s work out our houseprice example in a little more detail and introduce some terminology:<br />
+The sample of houses will be the <em>dataset</em> $\Delta$ consisting of elements $(x,y)$ where the <em>feature</em> $x \in \mathbb{R}^4$ contain all the information of the house and the <em>label</em> $y$ is the corresponding selling price of the house. Saying that $h$ <em>fits the data $\Delta$ best</em> means that $h$ predicts the selling price  $y$ from $x$ as accurately as possible. In other words, for all houses, the error in prediction $\big(h(x)-y\big)$ must be minimized according to some cost.<br />
+The most elegant way to do this is to view the sequence $v= \big(h(x)-y\big)_{(x,y)\in \Delta}$ as a single vector in the vector space $\mathbb{R}^{\vert \Delta \vert}$ and to consider the canonical norm. In other words, we wish to find the $h$ that minimizes $$\vert \vert v \vert \vert = \sqrt{\sum _{(x,y)\in\Delta}\big( h(x)-y\big)^2}$$<br />
+Any standard textbook in statistics will now tell you that as long as the features $x \in \Delta$ span the the vector space $\mathbb{R}^4$, there always exists a unique $h$ that minimizes $\vert \vert v\vert \vert$. They&rsquo;ll usually tell you that this $h$ corresponds to a $1\times 4$ matrix and there is something called the normal equation that provides you with the unique solution!!</p>
+
+<p>Now, let&rsquo;s take this example step further: the fact that the features and labels were elements of the sets $\mathbb{R}^4$ and $\mathbb{R}$ is of course totally irrelevant. Instead, we only need two finite-dimensional vector spaces, say $V$ and $W$ respectively, which are equipped with an inner product (this to we can talk about <em>best fitting the data</em>).<br />
+To describe our more general linear regression, we again begin with a dataset $\Delta \subset V \times W$ consisting of points $(x,y)$ and wish to find the hypothesis $h \in \text{Hom}_{\mathbb{R}}(V,W)$ that fits $\Delta$ best. Again, let&rsquo;s look at all the errors in predictions $v= \big( h(x)-y\big)_{(x,y)\in \Delta}$ as a single vector $v$ in the vector space $W^{\vert \Delta \vert}$. It&rsquo;s well know that $W^{\vert \Delta \vert}$  carries a natural inner product space with norm</p>
+
+<p>$$
+\vert \vert v \vert \vert_{W^{\vert \Delta \vert}} = \sqrt{ \sum_{(x,y)} \vert\vert h(x)-y \vert\vert_W^2}
+$$
+So in this more general example, we&rsquo;ll want to find $h$ that minimizes the above quantity</p>
+
+<p>We will in this post series prove that this also can be done uniquely as long as the features $x \in \Delta$ span the vector space $V$!</p>
+
+<p>Now, the careful reader will spot that there is one more level of abstraction to be considered: Indeed, the above norm really only depends on the inner product in the vector space $W$. The problem thus only requires $W$ to be an inner product space..</p>
+
+<p>So in principle, we could simply consider any dataset $\Delta \in \mathfrak{X}\times \mathfrak{y}$ where $\mathfrak{X}$ is <strong>any set</strong> and $\mathfrak{y}$ a finite-dimensional inner product space, and consider the linear regression problem for this dataset. One first hurdle is to answer the question:
+<center>
+What does the word linear mean in this context?
+</center></p>
+
+<p>There&rsquo;s an easy answer to this: note that the set of functions $\mathfrak{X}^\mathfrak{y}$ is a vector space, and now pick <em>any</em> subspace $\mathfrak{H}$ that is finite-dimensional.
+The new linear regression context now asks for the dataset $\Delta \subset \mathfrak{X}\times \mathfrak{y}$, to find a unique function $h \in \mathfrak{H}$ which minimizes the norm:
+$$
+\vert \vert v \vert \vert_{\mathfrak{y}^{\vert \Delta \vert}} = \sqrt{\sum_{(x,y)\in\Delta}\vert \vert  h(x)-y\vert \vert_{\mathfrak{y}}^2}
+$$</p>
+
+<p>Of course this $h$ may not always exist: the in the above two examples we needed to guarantee a little extra spanning condition on the features. However, we can easily translate this condition into as follows:
+<div class = 'definition'>
+We say that a dataset $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ separates the space $\mathfrak{H}\subset \mathfrak{X}^\mathfrak{y}$ if for any two functions $f,g \in \mathfrak{H}$, we have $$f_\Delta = g_\Delta \implies f = g$$
+</div></p>
+
+<p>In this post series, we will prove that under the condition of separation, a unique $h \in \mathfrak{H}$ indeed minimizes the above norm. Summing up:
+<div class = 'lemma'>
+Let $\mathfrak{X}$ be any set and $\mathfrak{y}$ be any finite dimensional inner product space. Let $\mathfrak{H}\subset \mathfrak{X}^\mathfrak{y}$ be any finite dimensional subspace. Then for any finite $\Delta \in \mathfrak{X}\times \mathfrak{y}$ that separates $\mathfrak{H}$, there exists  a unique $h_\Delta \in \mathfrak{H}$ such that
+$$
+\vert \vert h(x)-y\vert \vert_{\mathfrak{y}^\Delta} = \sqrt{\sum_{(x,y)\in \Delta} \vert \vert h_\Delta(x)-y\vert \vert_{\mathfrak{y}}^2}
+$$
+is minimal
+</div>
+As promised above, we will also reformulate the above lemma in the context of our theory of <a href="{{&lt; ref 'Defining_Supervised_Learning.md'&gt;}}">learners</a>.<br />
+Recall that a sharp learner consists of a set of features $\mathfrak{X}$, a set of labels $\mathfrak{y}$, together with a hypothesis space given as a set $\mathfrak{H}\subset \mathfrak{y}^\mathfrak{X}$, a dataspace $\mathfrak{D}$ consisting of finite subsets of $\mathfrak{X}\times \mathfrak{y}$ and a cost function $c: \mathfrak{D}\times \mathfrak{H}\longrightarrow \mathbb{R}$ for which the function $h_\Delta = \textrm{argmin}_{f \in \mathfrak{H}}c(\Delta,f)$ is well defined.. We can now restate the above lemma as follows:</p>
+
+<div class = 'theorem' >
+(Linear regression)  
+Let $\mathfrak{X}$ be any set and $\mathfrak{y}$ be any finite dimensional inner product space. Let $\mathfrak{H}\subset \mathfrak{X}^\mathfrak{y}$ be any finite dimensional subspace and assume $\mathfrak{D}$ consists of finite $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that separate $\mathfrak{H}$.  
+Let 
+$$c: \mathfrak{D}\times \mathfrak{H}:(\Delta, f) \mapsto \vert \vert h(x)-y\vert \vert_{\mathfrak{y}^\Delta}$$
+Then $(\mathfrak{X}, \mathfrak{y},\mathfrak{H},\mathfrak{D},c)$ defines a sharp learner called a linear learner
+</div>
+
+<p>Of course our second example provides a specific construction of such a linear learner:</p>
+
+<div class = 'example'>
+Let $\mathfrak{X}$ be a finite dimensional inner-product space, let $\mathfrak{H}=\textrm{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ and let $\mathfrak{D}$ be the set of all finite $\Delta\subset \mathfrak{X}\times \mathfrak{y}$ such that $\{x \in \Delta\}$ spans $\mathfrak{X}$. Then $\mathfrak{H}$ is surely finite dimensional and each $\Delta$ surely separates $\mathfrak{H}$ (since any linear map is completely defined on a spanning set). The conditions of the above theorem are thus satisfied and we have thus constructed a linear learner. We will call these types of linear learners Euclidean (as $\mathfrak{X}$ is itself a Euclidean space) 
+</div>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/" data-id="73dfcb6c62ae137a101baf80c0d22069" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://mathvsmachine.com/2017/05/20/least-squares-the-return-of-the-pseudo-inverse/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Least squares: the return of the Pseudo-inverse</div>
+    </a>
+    
+
+    
+    <a href="https://mathvsmachine.com/2017/05/20/dissecting-pseudo-inverses/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">Dissecting Pseudo-inverses</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "louis-de-thanhoffer" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/supervised_learning.png)" alt="Introducing Regression..Differently" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="title">Defining Supervised Learning</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/dissecting-pseudo-inverses/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Introducing Regression..Differently" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/dissecting-pseudo-inverses/" class="title">Dissecting Pseudo-inverses</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Introducing Regression..Differently" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/introducing-regression..differently/" class="title">Introducing Regression..Differently</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/least-squares-the-return-of-the-pseudo-inverse/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Introducing Regression..Differently" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/least-squares-the-return-of-the-pseudo-inverse/" class="title">Least squares: the return of the Pseudo-inverse</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/projections-and-the-normal-equation/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_algebra.png)" alt="Introducing Regression..Differently" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/projections-and-the-normal-equation/" class="title">Projections and the normal equation</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-algebra" style="font-size: 12px;">linear-algebra</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-regression" style="font-size: 12px;">linear-regression</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/supervised-learning" style="font-size: 12px;">supervised-learning</a>
+        
+    </div>
+</div>
+
+
+
+
+    
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title"></h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/linear-regression">
+                    linear-regression
+                </a>
+                <span class="category-list-count">4</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/supervised-learning">
+                    supervised-learning
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	
+
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120720172-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script src="https://mathvsmachine.com/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mathvsmachine.com/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script src="https://sonoisa.github.io/xyjax_ext/xypic.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

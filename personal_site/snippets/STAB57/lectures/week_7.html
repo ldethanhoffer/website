@@ -1,0 +1,32 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 5</h2>
+        In this week of classes we began by going over the solutions to the midterm, which will be posted on the website next week.<br>
+        We then went on to describe two more methods of making inferences: confidence intervals and hypothesis testing.<br><br>
+        To introduce these concepts, as always, we considered a statistical model \(\Theta \Rightarrow S\) where \(S\) is a sample set together with a collection of probability measures \(P_\theta\) for any parameter \(\theta \in \Theta\), some data \(x=(x_1,\ldots x_n)\) and wish to estimate a characteric \(\psi: \Theta \longrightarrow \mathbb{R}\) of the parameter space.<br>
+        One way of doing this is to let go of the idea of trying to infer the true value of \(\psi(\theta)\) and focus instead on finding a range in which we can assume \(\psi(\theta)\) to be in. <br>
+        More precisely, we consider some probability \(\gamma \in [0,1]\) (which you could view as a level of certainty) and whish to construct a \(\gamma\)-confidence interval as a set \(C(x)\) such that
+        \[P_\theta(\psi(\theta) \in C(x))\ge \gamma\]
+        Intuitively, if you sample data \(s\) according to a distribution \(P_\theta\), you can expect the characteristic to lie in the confidence interval about \(\gamma\%\) of the time. We then went on to describe these intervals in two important cases: estimating the mean of the location- and location-scale normal model.
+        In the location normal model, we let \(S=\mathbb{R}\) and consider probability measures \(P_\mu\sim N(\mu,\sigma_0^2)\) where \(\sigma_0^2\) is a known variance. We showed that:
+        <div class="theorem">
+        For the location normal model, a confidence interval is given by \[[\overline{x}-z_{\frac{\gamma+1}{2}}\frac{\sigma_0}{\sqrt{n}},\overline{x}+z_{\frac{\gamma+1}{2}}\frac{\sigma_0}{\sqrt{n}}]\]
+        where \(\overline{x}\) denotes the sample mean \(\frac{1}{n}\sum_i x_i\) and \(z_{\frac{\gamma+1}{2}}\) denotes the \(\frac{\gamma+1}{2}\)'th quantile of the normal distribution \(N(0,1)\)
+        </div>
+        We expanded on that example and considered the problem of finding a confidence interval of the mean in the location-scale model where \(P_{(\mu,\sigma^2)}\sim N(\mu,\sigma^2)\). To describe the confidence interval here we recalled the following result:
+        <div class="lemma">
+        assume that $X_1,\ldots X_n$ is a sequence of iid random variables with \(X_i\sim N(\mu,\sigma^2))\). Let \(\overline{X}\) denote the sample mean and \(S^2=\frac{1}{n-1}\sum (X_i-\overline{X})^2\) the sample variance. Then the random variable \[\frac{\overline{X}-\mu}{S/\sqrt{n}}\] is distrbuted according to the t-distribution
+        </div>
+        The actualy formula for the t-distribution is rather complicated and involves the \(\Gamma\)-function. I don't expect you to know this formula.. We can however use to describe the required confidence interval:
+        <div class="theorem">
+        For the location normal model, a confidence interval is given by \[[\overline{x}-t_{\frac{\gamma+1}{2}}\frac{s}{\sqrt{n}},\overline{x}+t_{\frac{\gamma+1}{2}}\frac{s}{\sqrt{n}}]\]
+        where \(\overline{x}\) denotes the sample mean \(\frac{1}{n}\sum_i x_i\), \(z_{\frac{\gamma+1}{2}}\) denotes the \(\frac{\gamma+1}{2}\)'th quantile of the normal distribution \(N(0,1)\) and \(s^2\) denotes the sample variance \(s^2=\frac{1}{n-1}\sum (\overline{x}-x_i)^2\)
+        </div>
+        Finally, as part of this week's assignment, we'll investigate how to construct confidence intervals for the Bernouilli model.<br>
+        The second major inference technique we discussed is that of hypothesis testing. To motivate this, I described one of the original thought experiments (first discussed by Ron Fisher): the lady tasting tea.<br> 
+        In this thought experiment, a lady claims to be able to discern whether the tea gets poured before or after the milk. To verify her claim, 8 cups of tea are poured, 4 tea first, 4 milk first and make the lady pick the once poured tea first. The question becomes how many does she need to get right in order for us to believe she has this skill?<br>
+        We deduced in class that the lady can make \(\binom{8}{4}=70\) choices. The probability that she gets them all right is \(1.4\%\), the probability that she gets 3 or more right is \(24\%\). In other words, if we were to believe her and decide that her choosing cups is not a fluke, show would have to get all of them right!<br> It is this idea that served a the starting point of hypothesis testing<br><br>
+        We begin by assuming the hypothesis that the characteristic takes on a certain value \(H_0:\psi(\theta)=\psi_0\) (this is referred to as the null hypothesis) and gather data \(x\) as evidence to support (or reject the null hypothesis). To decide whether or not we wish to accept the null hypothesis, we introduce a concept called the \(p\)-value
+    </div>
+
+</div>

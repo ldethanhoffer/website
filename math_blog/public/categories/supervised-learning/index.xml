@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Supervised Learning on </title>
+    <link>https://mathvsmachine.com/categories/supervised-learning/</link>
+    <description>Recent content in Supervised Learning on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by [Hugo](//gohugo.io).</copyright>
+    <lastBuildDate>Sat, 20 May 2017 11:58:06 +0200</lastBuildDate>
+    
+	<atom:link href="https://mathvsmachine.com/categories/supervised-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Defining Supervised Learning</title>
+      <link>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</guid>
+      <description>In this inaugural post of the mathvsmachine blog we will introduce a mathematical definition that encaptures the idea of supervised learning. This definition is close to the one found in the literature, but is stated just a little more precisely. We intend to not only prove that the algorithms we all know and love indeed fit within this definition, but in time expand and build a fully fledged theory of supervised learners</description>
+    </item>
+    
+  </channel>
+</rss>

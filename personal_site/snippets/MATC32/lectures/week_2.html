@@ -1,0 +1,39 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 2</h2>
+        <p >In this second week of classes, we delved a little more in detail into various aspects of graph theory</br>
+        </p>
+        <p >
+        		We began by defining a graph morphism \(G\longrightarrow G'\) as a pair of functions \[\phi_1:V(G)\longrightarrow V(G') \textrm{ and }\phi_2:E(G)\longrightarrow E(G')\]
+                such that the endpoints of the image of an edge under \(\phi_2\) are the images of its endpoints under \( \phi_1 \). We showed how this definition simplifies whenever the graph is simple (you need only specify \(\phi_1\) in this case) and looked at certain examples: the definition of a subgraph and isomorphic graphs. In particular we showed that the pentagon is self-complementary.</br>
+                Note that only the case of simple isomorphic graphs is treated in the textbook section 1.1.20.</br>
+                We next looked at certain constructions you can make with graphs: the complement, intersection and union of graphs. In particular, we defined the decomposition of graphs and gave examples(se Def. 1.1.32).</br>
+                One particualryl silly thing one could do is to look at the disjoint union of graphs \(G\cup G'\). In this case there was never any path between two vertices lying in different components. The question as to how a graph could decompose into a disjoint union of subgraphs motivated the dicussion of connectivity.</br>
+                The main idea here was the following principle:</br></br> 
+                <center>studying certain connectivity properties allows us to make conclusions about the type of graph we are considering relatively easily.</center></br>
+                We began our study with a little vocabulary: path, cycle, trail, walk etc (see Def. 1.2.2), connected vertices and connected graphs. I alluded to the fact that in fact each graph was the disjoint union of connected subgraphs, but to understand exactly how a graph could be subdivided into such a union, a new mathematical tool was necessary: the equivalence relation.</br>
+                I defined an equivalence relation on a set \(X\) as a relation \(\sim \) which was reflexive, symmetric and transitive. I then showed that the equivalence classes \(\overline{x}=\{y \in X\vert\, x\sim y\}\) formed a partition. Whats more, given a partition \((X_{i})_{i \in I}\), one could define the relation \(x\sim y \iff x,y \in X_k\). This is in turn an equivalence relation whose classes coincide with the partition. We can summarize the situation:
+                </br></br> 
+                <center>partitions on \(X\) \(\Leftrightarrow\) eq. rels on \(X\) </center></br>
+                I gave examples using the people in the class, but we were mostly interested in noting that two vertices being connected yielded an equivalence relation. We renamed the equivalence classes connected components (which were indeed connected), so that we could finally conclude that every graph is the disjoint union of its connected components (this is roughly covered in 1.2.6-8 of the book).</br>
+                We then went on to make good on our promise to show we can indeed make conclusions from connectivity properties. In particular, we proved two theorems:</br>
+                <div class = "theorem">(1.2.14)
+                Let \(e \in E(G)\). The following are equivalent:.</br>
+                 <ol>
+                    <li>   \(e\) defines an edge-cut</li>
+                    <li> \(e\) does not lie on a cycle.</li>
+                </ol>
+                </div>
+                And using 1.2.15 as a lemma we also (almost) proved:
+                <div class = "theorem">
+                (Konig) 
+
+                    <li> \(G\) is bipartite </li>
+                    <li> \(G\) has no odd length cycles
+                </ol>
+                </div>
+
+		</p> 
+	        
+    </div>
+</div>

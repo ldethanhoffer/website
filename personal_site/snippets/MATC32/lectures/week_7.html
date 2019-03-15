@@ -1,0 +1,13 @@
+<div class="columns course_snippet">
+    <div class="column">
+    In this 7th week of classes, we began by going over the midterm, which you will find in the website.<br>
+    We then introduced the idea of planarity. We defined a drawing of a graph as a function \(\psi\) which associates to each vertex a point \(\mathbb{R}^n\)and to each edge a polygonal curve in \(\mathbb{R}^n\) such that the endpoints of the curve associated to an edge \(uv\) are \(\psi(u)\psi(v)\). We will be interested in particular in the cases where \(n=2\) or when \(\psi(V)\subset S^2\) (ie we can place the points on the 2-sphere). An important property you can ask a drawing to have is the absence of crossings: i.e. the polygonal curves of the drawing only intersect in common endpoints of the curve. In the case where \(n=2\), this is called planarity, and a graph with such a drawing is called planar. It turns out that planar graphs have very beayitulf prpoerties, which usually find their roots in Euler's famous formula (which is arguable the first result in graph theory, together with the Konigsberg problem we discussed in week 1)
+    <div class="centered-bubble">
+    For a connected planar graph, we have \(V-E+F=2\)
+    </div>
+    One nice application of this is to find inequalities that relate the number of edges to the number of vertices:<br>
+    Indeed,  let \(G\) be any raph with at least three vertices. for each face, we count the number of edges that make up that face. We have then double counted each edge. Moreover, since each face has at least three edges, this number is also larger to \(3F\), yielding \(2E\ge 3F\). Pluggin this into Euler's formula and rarranging the yields \[E\le 3V-6\] We can use this to show that the complete graph on 5 vertices, \(K_5\) is nonplanar as it has 5 vertices and 9 edges.<br>
+    Similarly, if we assume that a graph has no triangles (i.e. length 3 cycles), then each face is made up of at least \(4\) edges, and we obtain \(2E\ge 4F\iff E\ge 2F\), plugging this inequality into Euler's formula in turn yields \(E\le 2V-4\). We can use this to show that the complete bipartite graph \(K_{3,3}\) (recall that this graph contains two sets of 3 independent vertices and an edge between each vertex from either set) is nonplanar, as it has 6 vertices and 9 edges and no triangles.<br>
+    The main result we quoted here is that in fact, we found all the possible obstructions to a graph being planar! To this end, we defined a subdivision of a graph as replacing an  edge (e:u-v\) by \(e_1,e_2: u-z-v\). It is clear that 
+    </div>
+</div>

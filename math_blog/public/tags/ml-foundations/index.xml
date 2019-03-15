@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ml Foundations on </title>
+    <link>https://mathvsmachine.com/tags/ml-foundations/</link>
+    <description>Recent content in Ml Foundations on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by [Hugo](//gohugo.io).</copyright>
+    <lastBuildDate>Sat, 20 May 2017 11:58:06 +0200</lastBuildDate>
+    
+	<atom:link href="https://mathvsmachine.com/tags/ml-foundations/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Defining Supervised Learning</title>
+      <link>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</guid>
+      <description>In this series of blog posts, we intend to discuss a new mathematical way of describing the problem of supervised learning &amp;hellip;
+The main paradigm in supervised learning is to start with a dataset which is split into features and labels and ask whether to any feature a label (of a certain type depending on the context) that best matches the given dataset.
+Let&amp;rsquo;s dissect that sentence a little more&amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>

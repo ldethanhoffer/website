@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Defining Supervised Learning on </title>
+    <link>https://mathvsmachine.com/categories/defining-supervised-learning/</link>
+    <description>Recent content in Defining Supervised Learning on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by [Hugo](//gohugo.io).</copyright>
+    <lastBuildDate>Sat, 20 May 2017 11:58:06 +0200</lastBuildDate>
+    
+	<atom:link href="https://mathvsmachine.com/categories/defining-supervised-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Defining Supervised Learning</title>
+      <link>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</guid>
+      <description>In this inaugural post of the mathvsmachine blog we will introduce a mathematical definition that encaptures the idea of supervised learning. This definition is close to the one found in the literature, just stated just a little more precisely. In this way, we&amp;rsquo;ll ibe able to not only prove that the algorithms we all know and love indeed fit this definition, but in time expand and build a fully fledged theory of supervised learners</description>
+    </item>
+    
+    <item>
+      <title>Introducing linear regression..a little differently</title>
+      <link>https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/</guid>
+      <description>Anyone who&amp;rsquo;s taken an intro to statistics class is familiar with the basic concept of linear regression&amp;hellip;
+The quintessential example is guessing house prices: let&amp;rsquo;s say you go around houses in your neighborhood collecting some data on each house (the square footage, the number of bedrooms, the size of the yard and the age of the house for example). You also ask your neighbors the selling price for each house. The idea is to estimate the selling price of your own house based off the info you gathered&amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>

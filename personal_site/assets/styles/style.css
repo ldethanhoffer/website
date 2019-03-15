@@ -1,0 +1,228 @@
+body{
+	background-color:#FEFEFE;
+}
+
+@font-face {
+	font-family: Muli-Light;
+	src: url('../fonts/Muli-Light.ttf')
+}
+
+@font-face {
+	font-family: Didot;
+	src:url("../fonts/didot.ttf")
+}
+
+/* centered frames */
+
+div.centered-bubble{
+	text-align:center;
+	border:1px solid black;
+	padding:1%;
+	margin:1%;
+}
+
+
+/* pictures in lecture notes */
+
+div.lecture-image{
+	display:block;
+	margin:auto;
+	max-width: 200px;
+}
+
+/* course page sidebar */
+
+div.expand-item{
+	height: 40px;
+	overflow:hidden;
+	width:auto;
+	cursor:pointer;
+}
+
+
+/*footer*/
+	/*space between page and footer*/
+.footer{
+	margin-top:60px;
+}
+
+
+/*
+Links:
+*/
+
+a {
+	color: #34a1c9;
+}
+
+
+a:hover {
+	color: #00d1b2;
+}
+/* Navigation bar*/
+
+.navbar, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
+	background-color: #789EAC;
+}
+
+.navbar-menu {
+	min-height: 60px;
+}
+
+.navbar-item, .navbar-link {
+	color: #FFFFFF;
+}
+
+.navbar-link::after {
+	border: 1px solid #FFF;
+	border-top: 0;
+	border-right: 0;
+}
+
+
+
+a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
+	color: #FFF;
+	background-color: #789EAC;
+}
+
+.navbar-dropdown .navbar-item {
+	color: #789EAC;
+}
+
+.navbar-start{ 
+	margin-left:2%;
+
+
+ }
+/* Profile */
+
+.columns {
+	font-family: Muli-Light;
+	margin-top: 0px;
+}
+
+.profile, .topic{
+	margin-left:auto;
+	margin-right:auto; /* centers the text */
+	max-width: 70%;
+	border-bottom: 2px solid #CDCDCD;
+
+}
+
+.course_snippet{
+	margin-left:210px;
+	margin-right:auto; /* centers the text */
+	max-width: 75%;
+	border-bottom: 2px solid #CDCDCD;
+}
+
+/*make the toggle function */
+.expand-text {
+	height: 80px;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+/*declare the height for untoggled topics*/
+
+.expand-text p {
+	height: 60px;
+}
+
+p {
+	font-size: 1rem;
+	line-height: 125%;
+
+}
+
+/* articles */
+.article{
+	border-bottom: 2px solid #CDCDCD;
+	margin-left:auto;
+	margin-right:auto; /* centers the text */
+	margin-bottom:100px;
+	max-width: 75%;
+}
+
+.article_link{
+	float:right;
+}
+
+/* images */
+
+.navbarlogo {
+	color: white;
+	padding-top:12px;
+	padding-right:13px;
+}
+
+.navbarlogo:hover{
+	color:white;
+}
+
+
+/* profile pic */
+img.logo {
+	width: 140px;
+	border-radius: 50%;
+}
+
+/* spacing for the ordered lists in a topics column */
+
+.li-inside-topic {
+	padding-top:15px; 
+	padding-left:25px;
+	padding-bottom: 0%;
+}
+
+
+/*sidebars*/
+
+.sidebar {
+	position:fixed;
+	float:left;
+	height:1000px;
+	padding-bottom:100%;
+}
+
+.menu-label{
+	margin:10px;
+}
+
+/*
+.menu-list{
+	display:none;
+}
+*/
+
+
+
+ /* extend the width */
+ .sidebar ul.menu-list li{
+ 	width: 250%;
+ 	padding-left:20%;
+ }
+
+	/* add space between items*/
+.publications.sidebar ul.menu-list li{
+	padding-bottom:45%;
+}
+.course.sidebar ul.menu-list li{
+	padding-bottom:6%;
+}
+
+ol {
+	padding-top:12px;
+	padding-bottom:12px;
+	margin-left: 40px;
+
+}
+
+
+/* footer */
+.footer{
+	bottom:0;
+	padding:1%;
+	background-color:#FEFEFE;
+}

@@ -1,0 +1,22 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 2</h2>
+        <p > This week we mainly went over the necessary concepts of probability as explained in the chapters 1 through 4 of the book. We began by defining the notion of a probability space \(S,P\), and mentioned there are two families: discrete (where we could assume \(S\subset \mathbb{N}\) and continuous (where we would assume \(S\subset \mathbb{R}\)). To describe the probability \(P\) easily, we recalled the following theorem:
+        <div class = "theorem">(Radon-Nykodim)> If \(S\) is discrete, the function \(p: S\longrightarrow \mathbb{R}: x\mapsto P(x)\) satisfies \(P(A)=\sum_{x\in A} p(x)\).</br>
+        If \(S\) is continuous, there exists an essentially unique function \(f:S\longrightarrow \mathbb{R}\) such that \(P(A)=\int_{A} f dx\)
+        </div>
+        the function above was called the density of the space.</br>. We also introduced the cdf \(F\) of the space as \(F(a)=\sum_{x \le a } p(x)\) or \(F(a)=\int_{x\le a}f(x)\) in the discrete resp. continuous case.</br>
+        We showed that given a probability space, one could make a new one in two major ways: 
+        <ol style = "margin-left:40px">
+        <li> the product \((S_1,P_1)\times (S_2,P_2)\) with probability \(P(A\times B)=P_1(A)\cdot P_2(B)\).</li>
+        <li> Given a function \(X:(S,P)\longrightarrow T\) (called a random variable in the context of probability), one could "push \(P\) forward" to a probability \(P_X\) on \(T\) defined as \(P_X(B)=P(X^{-1}(B))\). This \(P_X\) is the "distribution" of \(X\)</li>
+        </ol>
+        There are a numerous number of properties relevant to a random variable: we defined the independene of two sets, then of two families of sets (if each choice of two sets is in turn independent) and finally of two random variables \(X,Y:S\longrightarrow T\) (when the families \(X^{-1}(A)_{A \in T}\) and \(Y^{-1}(B)_{B\in T}\) are in turn independent.</br>
+        We also recalled that there are two interesting values associated to a probability space (and hence a random variable:
+        <ol style = "margin-left:40px">
+        <li> the mean \(\mathbb{E}[X]\) defined as \(\mathbb{E}[X]=\sum xp(x)\) or \(\mathbb{E}[X]=\int_S xf(x) dx\) in the descrete (resp. continuous) case.
+        <li>the variance \(\textrm{Var}[X]\) defined as \(\mathbb{E}[(X-\mathbb{E}[X])^2]\) </li>
+        </ol>
+        </p>
+    </div>
+</div>

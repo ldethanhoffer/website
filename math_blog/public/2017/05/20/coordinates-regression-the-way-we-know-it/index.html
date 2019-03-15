@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Coordinates: Regression the way we know it &middot; </title>
+    <meta name="generator" content="Hugo 0.27.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Math vs. Machine">
+    
+      <meta name="description" content="">
+    
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="canonical" href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/"/>
+    <link rel="icon" href="https://mathvsmachine.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mathvsmachine.com/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/style.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/monokai.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/fancybox/jquery.fancybox.css">
+    
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/theorems.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Coordinates: Regression the way we know it" />
+<meta property="og:description" content="In our post series on linear regression in machine learning, up to now, we have already done quite a bit of work: we first gave mathematical definition of supervised learning. We then described how to interpret the concept of linear regression as a class of supervised learners. Along the way, we gave an overview of an important and underestimated tool in linear algebra: the pseudo-inverse.
+Our approach discussed linear regression in the highest possible generality." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" />
+
+
+
+<meta property="article:published_time" content="2017-05-20T11:58:06&#43;02:00"/>
+<meta property="article:modified_time" content="2017-05-20T11:58:06&#43;02:00"/>
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Coordinates: Regression the way we know it">
+<meta itemprop="description" content="In our post series on linear regression in machine learning, up to now, we have already done quite a bit of work: we first gave mathematical definition of supervised learning. We then described how to interpret the concept of linear regression as a class of supervised learners. Along the way, we gave an overview of an important and underestimated tool in linear algebra: the pseudo-inverse.
+Our approach discussed linear regression in the highest possible generality.">
+
+
+<meta itemprop="dateModified" content="2017-05-20T11:58:06&#43;02:00" />
+<meta itemprop="wordCount" content="544">
+
+
+
+<meta itemprop="keywords" content="linear regression,linear algebra,supervised learning," />
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Coordinates: Regression the way we know it"/>
+<meta name="twitter:description" content="In our post series on linear regression in machine learning, up to now, we have already done quite a bit of work: we first gave mathematical definition of supervised learning. We then described how to interpret the concept of linear regression as a class of supervised learners. Along the way, we gave an overview of an important and underestimated tool in linear algebra: the pseudo-inverse.
+Our approach discussed linear regression in the highest possible generality."/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mathvsmachine.com" id="logo">
+          
+          <span class="site-title"></span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/files/book.pdf">The Book</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/series/">Post Series</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png">
+      
+      <h2 id="name">Math vs. Machine</h2>
+      <h3 id="title">Louis de Thanhoffer de Volcsey</h3>
+      
+      
+          <a id="follow" href="https://louisdethanhoffer.com">
+              Website
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        6
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          3
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/ldethanhoffer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+<td><a href="//linkedin.com/in/louisdethanhoffer" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+          <td><a href="https://mathvsmachine.com/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://mathvsmachine.com/banners/normal_eq.png" class="article-banner">
+        
+
+        
+
+<header class="article-header">
+    <a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/">
+    <h1 class="article-title" itemprop="name">
+        Coordinates: Regression the way we know it
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+            &middot;
+            
+            544
+            words
+            &middot;
+            
+            
+            
+        
+        </div>
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-list-alt"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/series/linear-regression">linear regression</a>
+                
+                
+            </div>
+            
+        
+
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>In our post series on linear regression in machine learning, up to now, we have already done quite a bit of work: we first gave mathematical definition of <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/">supervised learning</a>. We then described how to interpret the <a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/">concept of linear regression</a> as a class of supervised learners. Along the way, we gave an overview of an important and underestimated tool in linear algebra: the <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/">pseudo-inverse</a>.</p>
+
+<p>Our approach discussed linear regression in the highest possible generality. We interpreted linear regression as the existence of a so-called <em>learned hypothesis</em> : a linear map $h_\Delta: \mathfrak{x}\mapsto \mathfrak{y}$ between two finite dimensional inner product spaces $\mathfrak{X}$ and $\mathfrak{y}$&hellip;</p>
+
+<p>Today, we introduce coordinates on the inner product spaces $\mathfrak{X}$ and $\mathfrak{y}$ and compute the matrix associated to the learned hypothesis $h_\Delta$. This matrix will indeed coincide with the  famous OLS matrix found in any book on <a href="https://en.wikipedia.org/wiki/Linear_least_squares">linear regression</a>.</p>
+
+<p>Let&rsquo;s begin with recapping exactly what we mean by linear regression: as mentioned above, we&rsquo;ll start with two finite dimensional inner product spaces $\mathfrak{X}$ and $\mathfrak{y}$, together with a dataset $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ of finitely many points such that the features $x \in \Delta$ span $\mathfrak{X}$.<br />
+We&rsquo;ll write $\Delta = \big( (x_1,y_1), \ldots, (x_d,y<em>d) \big)$
+ For any linear map $h \in \text{Hom}(\mathfrak{X},\mathfrak{y})$,  we define the cost function as
+$$c(\Delta, h)=\sqrt{\sum_{(x,y)\in \Delta} \vert \vert h(x)-y \vert \vert^2} $$
+In our <a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/">second post</a>, we showed that there exists a unique linear map $h</em>\Delta$ which minimizes the value $c(\Delta, -)$.</p>
+
+<p>We also gave a more or less explicit description of this $h_\Delta$: look at the map
+$$
+\text{ev}_\Delta: \text{Hom}(\mathfrak{X},\mathfrak{y})\longrightarrow \mathfrak{y}^\Delta: h\mapsto (h(x))_{x\in \Delta}
+$$
+Then
+$$
+h_\Delta = \text{ev}^+_\Delta ((y)_{y\in \Delta})
+$$
+Where $\text{ev}^+$ is the <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/">Moore-Penrose pseudo-inverse</a> of $\text{ev}$.</p>
+
+<p>Now, if we introduce coordinates on $\mathfrak{X}$ and $\mathfrak{y}$. then the space of liner maps $\textrm{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ is naturally identified with the space of matrices $\text{Mat}_{n\times m}(\mathbb{R})$ as we all know from basic linear algebra.<br />
+ The space $\mathfrak{y}^\Delta$ is in turn naturally isomorphic to $\text{Mat}_{d\times n}(\mathbb{R})$ (where $d=\vert \Delta \vert$). Using these two identifications, we can reinterpret $\text{ev}_{\Delta}$ as a linear map of the form:
+$$
+\overline{\text{ev}}_\Delta: \text{Mat}_{n\times m}(\mathbb{R})\longrightarrow \text{Mat}_{d\times n}(\mathbb{R})
+$$
+We now have the following:</p>
+
+<div class = "lemma">
+The above map is given by right multiplication by the matrix $X$ whose $k$-th column consists of the coordinates of the feature $x_k$ in the dataset $\Delta = \big( (x_1,y_1), \ldots, (x_d,y_d) \big)$
+</div>
+
+<p>Moreover, it is  nothing more than an exercise in formality to show that the operation of taking the Moore-Penrose pseudo-inverse of a map is compatible with this reinterpration in the sense that
+$$
+\overline{\big(\text{ev}_\Delta^+\big)} = \bigg(\overline{\text{ev}_\Delta}\bigg)^+
+$$
+Combining this with the above above lemma now yields that the linear map $\overline{\big(\text{ev}_\Delta^+\big)}$ is simply given by multiplying by $X^+$. Now we recall that the learned hypothesis $h_\Delta$ is given by evaluating $\text{ev}_\Delta$ at the sequence $(y)_{y \in \Delta}$. Putting everything together, we conclude that the matrix associated to $h_\Delta$ is given by $Y\cdot X^+$ where $Y$ is the matrix whose column vectors are the coordinates of the labels $y_1,\ldots , y_d$.</p>
+
+<p>Summarizing, we obtain:</p>
+
+<div class = "theorem">
+    The matrix corresponding to the learned hypothesis $h_\Delta$ is given by 
+    $$
+    Y\cdot X^+ = Y\cdot (X^t\cdot X)^{-1}\cdot X^t
+    $$
+    </div>
+
+<p>Note that the last equation follows from the fact that $X^+ = (X^t\cdot X)^{-1}\cdot X^t$ if the matrix $X$ is injective</p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" data-id="5cc2c8277d55d4f66e823435b161ce7e" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Defining Supervised Learning</div>
+    </a>
+    
+
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "louis-de-thanhoffer" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Coordinates: Regression the way we know it" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/" class="title">Coordinates: Regression the way we know it</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/supervised_learning.png)" alt="Coordinates: Regression the way we know it" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/defining-supervised-learning/" class="title">Defining Supervised Learning</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Coordinates: Regression the way we know it" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/" class="title">Disecting Pseudo-inverses</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_regression.png)" alt="Coordinates: Regression the way we know it" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/" class="title">Introducing linear regression..a little differently</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/thumbnails/linear_algebra.png)" alt="Coordinates: Regression the way we know it" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/proving-linear-regression/" class="title">Proving Linear Regression</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-algebra" style="font-size: 12px;">linear-algebra</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-regression" style="font-size: 12px;">linear-regression</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/supervised-learning" style="font-size: 12px;">supervised-learning</a>
+        
+    </div>
+</div>
+
+
+
+
+    
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title"></h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/linear-regression">
+                    linear-regression
+                </a>
+                <span class="category-list-count">5</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/series/supervised-learning">
+                    supervised-learning
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	
+
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019
+      Powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-120720172-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script src="https://mathvsmachine.com/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mathvsmachine.com/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script src="https://sonoisa.github.io/xyjax_ext/xypic.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>the normal equation &middot; </title>
+    <meta name="generator" content="Hugo 0.27.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Math vs. Machine">
+    
+      <meta name="description" content="">
+    
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="canonical" href="https://mathvsmachine.com/2017/05/20/the-normal-equation/"/>
+    <link rel="icon" href="https://mathvsmachine.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mathvsmachine.com/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/style.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/monokai.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/fancybox/jquery.fancybox.css">
+    
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/theorems.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="the normal equation" />
+<meta property="og:description" content="In this post we will discuss the so-called least squares problem (which is a horribly outdated name): which consists of finding $L:V\longrightarrow W$ be a linear map between two finite-dimensional normed spaces. Let $y \in W$. The problem asks to find an $x \in V$ such that $L(x)$ is as close to $y$ as possible, i.e. find $$\min_{x \in V} \vert \vert y-L(x)\vert\vert$$
+We&rsquo;ll do this in a few steps. First we describe condition of minimizing $\vert \vert y-L(x)\vert\vert$ geometrically." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mathvsmachine.com/2017/05/20/the-normal-equation/" />
+
+
+
+<meta property="article:published_time" content="2017-05-20T11:58:06&#43;02:00"/>
+<meta property="article:modified_time" content="2017-05-20T11:58:06&#43;02:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="the normal equation">
+<meta itemprop="description" content="In this post we will discuss the so-called least squares problem (which is a horribly outdated name): which consists of finding $L:V\longrightarrow W$ be a linear map between two finite-dimensional normed spaces. Let $y \in W$. The problem asks to find an $x \in V$ such that $L(x)$ is as close to $y$ as possible, i.e. find $$\min_{x \in V} \vert \vert y-L(x)\vert\vert$$
+We&rsquo;ll do this in a few steps. First we describe condition of minimizing $\vert \vert y-L(x)\vert\vert$ geometrically.">
+
+
+<meta itemprop="dateModified" content="2017-05-20T11:58:06&#43;02:00" />
+<meta itemprop="wordCount" content="328">
+
+
+
+<meta itemprop="keywords" content="linear regression,linear algebra," />
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="the normal equation"/>
+<meta name="twitter:description" content="In this post we will discuss the so-called least squares problem (which is a horribly outdated name): which consists of finding $L:V\longrightarrow W$ be a linear map between two finite-dimensional normed spaces. Let $y \in W$. The problem asks to find an $x \in V$ such that $L(x)$ is as close to $y$ as possible, i.e. find $$\min_{x \in V} \vert \vert y-L(x)\vert\vert$$
+We&rsquo;ll do this in a few steps. First we describe condition of minimizing $\vert \vert y-L(x)\vert\vert$ geometrically."/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mathvsmachine.com" id="logo">
+          
+          <span class="site-title"></span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://github.com/ldethanhoffer/ML_for_mathematicians/blob/master/ml4m.pdf">The Book</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://github.com/ldethanhoffer/ML_for_mathematicians/blob/master/ml4m.pdf">The Book</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png">
+      
+      <h2 id="name">Math vs. Machine</h2>
+      <h3 id="title">Louis de Thanhoffer de Volcsey</h3>
+      
+      
+          <a id="follow" href="https://louisdethanhoffer.com">
+              Website
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        3
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          4
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/ldethanhoffer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+<td><a href="//linkedin.com/in/louisdethanhoffer" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+
+          <td><a href="https://mathvsmachine.com/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://mathvsmachine.com/banners/normal_equation.png" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/">
+    <h1 class="article-title" itemprop="name">
+        the normal equation
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+            &middot;
+            328
+            words
+            &middot;
+            2
+            minute read
+        </div>
+        
+        
+            
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/tags/linear-regression">linear regression</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/tags/linear-algebra">linear algebra</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>In this post we will discuss the so-called <em>least squares</em> problem (which is a horribly outdated name): which consists of finding  $L:V\longrightarrow W$ be a linear map between two finite-dimensional normed spaces. Let $y \in W$. The problem asks to find an $x \in V$ such that $L(x)$ is as close to $y$ as possible, i.e. find $$\min_{x \in V} \vert \vert y-L(x)\vert\vert$$</p>
+
+<p>We&rsquo;ll do this in a few steps. First we describe condition of minimizing $\vert \vert y-L(x)\vert\vert$ geometrically. To this end, we recall the following lemma:</p>
+
+<div class="lemma">
+Let $U\subset V$ be a subspace and write $V=U\oplus U^\perp$. Let $pi_U$ be the projection. Then $pu_U(y)$ is the unique vector that minimizes the distance $\min_{u \in U}\vert \vert x-u\vert \vert$
+</div>
+
+<p>It&rsquo;s not that hard to see since for any other vector $u$ in the subspace $U$, we have:
+$$\vert \vert y-\pi_U(y)\vert \vert^2\le \vert \vert y-\pi_U(x)\vert \vert ^2+\vert \vert \pi_U(y)-u\vert \vert^2= \vert \vert y-u\vert \vert^2$$</p>
+
+<p>By the Pythagorean theorem. The inequality becomes an equality precisely when $\vert \vert \pi_U(y)=u\vert \vert$, implying uniqueness.Applying this result to $U=\text{im}(L)$ yields</p>
+
+<div class="lemma">
+    Let $y\in W$. The following are equivalent:
+    <ol>
+        <li>$x$ minimizes the distance $\vert \vert y-L(x)\vert \vert$</li>
+        <li>the vector $y-L(x)$ is perpendicular to the subspace $\text{im}(L)$</li>
+    </ol>
+    </div>
+    In other words the condition of $L(x)$ indeed minimizing the distance $\vert \vert y-L(x)\vert \vert$ has turned into $$0=\langle y-L(x),L(x')\rangle =\langle L^{\ast} y-L^\ast\circ L(x),x'\rangle \text{ for all } x' \in V $$
+    Which by nondegeneracy yields to the normal equation:
+    $$(L^\ast\circ L)x =L^\ast y$$
+    We have actually already discussed the solution to this equation: indeed. let $L^+y$ denote the Moore-Penrose pseudo-inverse of $L$. Then
+    $$(L^\ast \circ L)(L^+y)=L\ast \circ (L\circ L^+)y=L^*(L\circ L^+)^\ast y= (L L^+\circ L)^\ast y=L^\ast y $$
+
+We ummarize the discussion in the following:
+
+<div class="theorem">
+The following are equivalent:
+<ol>
+    <li>The distance $\vert \vert y-L(x)\vert \vert $ is minimal among $x \in V$</li>
+    <li>$x$ is the projection of $y$ onto $\text{im}(L)$</li>
+    <li>$x$ is the unique solution to the normal equation $L^*Lx=L^*y$ </li>
+    <li>$x=L^+y$, where $L^+$ is the Moore-Penrose inverse of $L$ </li>
+</ol>
+</div>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mathvsmachine.com/2017/05/20/the-normal-equation/" data-id="6f4d2253e3397268ed0597dfb7fef26a" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+
+    
+    <a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Newer
+      </strong>
+      <div class="article-nav-title">pseudoinverses..served three ways</div>
+    </a>
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "louis-de-thanhoffer" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/on_supervised_learners_banner.png)" alt="the normal equation" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" class="title">On Supervised Learners</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/pseudoinverse.png)" alt="the normal equation" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" class="title">pseudoinverses..served three ways</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/normal_equation.png)" alt="the normal equation" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/" class="title">the normal equation</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/linear-algebra">
+                    linear-algebra
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/linear-regression">
+                    linear-regression
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/ml-foundations">
+                    ml-foundations
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/supervised-learning">
+                    supervised-learning
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-algebra" style="font-size: 12px;">linear-algebra</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-regression" style="font-size: 12px;">linear-regression</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/ml-foundations" style="font-size: 12px;">ml-foundations</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/supervised-learning" style="font-size: 12px;">supervised-learning</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	
+
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://mathvsmachine.com/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mathvsmachine.com/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script src="https://sonoisa.github.io/xyjax_ext/xypic.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

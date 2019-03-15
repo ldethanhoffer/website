@@ -1,0 +1,24 @@
+<!-- describe the series in the sidebar -->
+
+{{ if .Site.Params.widgets.series }}
+{{ if isset .Site.Taxonomies "series" }}
+{{ if not (eq (len .Site.Taxonomies.series) 0) }}
+<div class="widget-wrap">
+    <h3 class="widget-title">{{with .Site.Data.l10n.widgets.series.title}}{{.}}{{end}}</h3>
+    <div class="widget">
+        <ul class="category-list">
+            {{ range $name, $items := .Site.Taxonomies.series }}
+            <li class="category-list-item">
+                {{ $url := printf "%s/%s" "series" ($name | urlize | lower)}}
+                <a class="category-list-link" href="{{ $url | absURL }}">
+                    {{ $name }}
+                </a>
+                <span class="category-list-count">{{ len $items }}</span>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</div>
+{{ end }}
+{{ end }}
+{{ end }}

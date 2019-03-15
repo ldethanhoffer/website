@@ -1,0 +1,83 @@
+<div class="columns course_snippet">
+    <div class="column">
+        In this 5th week (apart from going over the answers of the first assigment), after having spent considerable time investigating the max-flow/min-cut theorem, we will go on to see how it can be used in practice. It turns out this theorem is acturally rather powerful and in particular  will let us answer some of the questions we raised in Week 1:  <br>
+        <div class="centered-bubble">
+        Asume that you want to marry off \(n\) women to \(n\) men. Each woman makes a choice of a set of men and each man automatically accepts if he is picked. Under what conditions can we marry off everybody?<br><br>
+        Shuffle a deck of cards and split it  into 13 piles of 4. Can you always make a clever choice from each pile hat results in your having a card from each rank? 
+        </div>
+        Both these problems are applications of the so-called Hall marriage theorem which in turn is nothing but a very elegant corollorary of Konig's theorem.<br>
+        Konig's theorem describes how large you can expect matching sets to become in bipartite graphs in terms of the size of certain vertex sets. To this end, recall that we defined a vertex cover as a set of vertices such that any edge has at least one endpoint in the set.
+        <div class="theorem">(Konig)
+        Let \(G\) be a bipartite graph.<br>
+        There exists a matching of size \(k\) provided that any vertex cover has size at least \(k\)
+        </div>
+        The illustration below shows a bipartite graph with a matching of size 4
+        <div style="text-align: center">
+        <img src="assets/MATC32/lectures/week_5/matching.png">
+        </div>
+        This statement above is an example of the type of statement we discussed in week 3 (I recalled the idea in class as well):
+        <div class="centered-bubble">
+        there exists a set of edges with some property of size \(k\) as long as any other vertex set with some other property has size \(k\) as well
+        </div>
+         These statements are usually proven using the min-max theorem: we want to assign a network to the graph which translates the graph/network concepts in the following way:
+        <table class = "table is-narrow is-bordered ">
+                <tr>
+                    <th> graph </th>
+                    <th> network </th> 
+                 </tr>
+                <tr>
+                    <th> matching </th>
+                    <th>flow </th>
+             </tr>
+               <tr>
+                    <th> size of matching </th>
+                    <th> value of flow </th>
+             </tr>
+              <tr>
+                    <th> vertex cover </th>
+                    <th>  cut </th>
+             </tr>
+             <tr>
+                    <th> size of vertex cover </th>
+                    <th> capacity of cut </th>
+             </tr>
+             </table>
+     We consider a bipartite graph \(V(G)=X\coprod Y\) and build a network as follows: we direct any edge from \(X\) to \(Y\),  add a source \(s\), a sink \(t\), and an edge from \(s\) to any vertex of \(X\) and from any vertex in \(Y\) to \(t\). Finally we need to endow the network with a capacity. Before that, we mention the following technical result:
+     <div class="theorem"> (integrality)
+     Let \(c\) be a capacity on a network taking values in \(\mathbb{N}\cup \infty\). Then there exists a maximal flow which takes values in \(\mathbb{N}\). This maximal flow remains equal to any minimal cut.
+     </div>
+     We thus endow the network with a capacity as follows:
+            \begin{equation}
+                c(u\rightarrow v)=
+                \begin{cases}
+                  1 & \text{if}\ u=s \\
+                 \infty & \text{if } u \in X, v \in Y\\
+                  1  & \text{if } v=t 
+                \end{cases}
+              \end{equation}
+    We concluded that with this capacity, any integral flow takes values in \(\{0,1\}\). What's more. the value of any such flow  (the amount of 1's from the source \(s\) to vertices in \(X\)) indeed corresponds to a set of disjoint edges between \(X\) and \(Y\)!<br> 
+    To complete the table, let \((S,T)\) be a cut with finite capacity, and consider the set \(C=(T\cap X)\cup (S\cap Y)\). This is indeed an edge cover (as any edge without endpoints in C would go from \(S\) to \(T\) and have infinite capacity, contradicting the finitude). What's more, since no edges from \(X\) to \(Y\) can contribute to the capacity, we concluded that the capacity consisted of  edges \(s\rightarrow T\) or \(S\rightarrow t\), which clearly equals the size of \(C\) (as any vertex in \(X\) resp. \(Y\) has exactly one edge to \(s\) resp. \(t\)) .<br>
+    To complete the proof, we need to argue why any vertex cover arises in this way. To this end, let \(C\) be a vertex cover and define \[S= X\cap C^c\,\textrm{ and }T=Y\cap C\]
+    Since \(C\) is a cover, we can deduce that \((S,T)\) is indeed a cut. Moreover, it is a fun exercise in set theory to check that the associated vertex cover is precisely \(C\)! This finishes the proof.<br><br>
+    This result may seem a little technical, but as we mentioned earlier it is in fact a stepping stone toward solving some fun combinatorial questions! One particular case takes place when \(\vert X\vert =\vert Y \vert\). We then ask wonder whether a perfect matching exists (i.e. each \(x\) gets connected to some \(y\) or equivalently, the matching has size \(\vert X\vert\)). Note that if we interpret \(X\) as a set of women and \(Y\) as a set of men, and draw an edge if a particular girl is interested in a particular boy, this is exactly the marriage problem. Following the TONCAS rule, we note that there is an obvious necessary condition: if we consider \(k\) women, they need to be interested in at least  \(k\) men if we want to marry everyone. More formally: if \(W\subset X\) and \(\Gamma(W)=\{y \vert \, \exists w \in W: (w,y)\in E(G\}\), a necessary condition is that \[ \vert W\vert \le \vert\Gamma( W) \vert\]
+    This is called the marriage condition.<br>
+     We now have the beautiful result:
+    <div class="theorem">(Hall)
+    Assume \(G=X\coprod Y\) is a bipartite graph with \(\vert X\vert=\vert Y\vert \). then the following are equivalent:
+    <ol>
+        <li>G satisfies the marriage condition</li>
+        <li>G has a perfect matching </li>
+    </ol>
+    </div>
+   All that remains to show is that if a perfect matching does not exist, we can find a set \(W\) which violates the marriage condition. We once more turn \(G\) into a network in the exact same way as Konig's theorem.<nr>
+    It follows that a max flow of value \(n\) is equivalent to a maximal matching of size \(n\). If this flow has value \(n=\vert X\vert \), we are done. If not, the max-flow/min-cut theorem guarantees the existence of a minimal cut of size \(k< n \). Now, by Week 4, this cut determines an edge cover of size \(k\), namely \(C=(X\cap T)\cup (Y\cap S)\), we conclude that \(\vert Y\cap S\vert<\vert X\cap S\vert \).<br> 
+   We now consider the subset \(W=X\cap S\subset X\). We will show that this set violates the marriage condition:<br>
+    We have \(\Gamma(W)\subset Y\cap S\), since otherwise this would produce an edge from \(X\cap S\) to \(Y\cap T\), which has infinite capacity, contradicting the fact that the cut has capacity \(k\). The proof is now complete, since we thus have \[\vert \Gamma(W)\vert \le \vert Y\cap S\vert < \vert X\cap S\vert =\vert W\vert \]
+    And the marriage condition is indeed violated!<br><br>
+   This yields an answer to our questions:
+   <div class="centered-bubble">
+        We can marry of  \(n\) women and \(n\) men provided we know that any group of \(k\) women is interested in at least \(k\) different men,<br><br>
+        Moreover, we can always solve our card problem as well
+        </div>
+    The second statement is a little less obvious and is part of the assigment (I gave a very big hint in class)
+</div>

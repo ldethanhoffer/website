@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on </title>
+    <link>https://mathvsmachine.com/categories/</link>
+    <description>Recent content in Categories on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by [Hugo](//gohugo.io).</copyright>
+    
+	<atom:link href="https://mathvsmachine.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Defining Supervised Learning</title>
+      <link>https://mathvsmachine.com/categories/defining-supervised-learning/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/categories/defining-supervised-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linear Regression</title>
+      <link>https://mathvsmachine.com/categories/linear-regression/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/categories/linear-regression/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linear Regression on </title>
+    <link>https://mathvsmachine.com/categories/linear-regression/</link>
+    <description>Recent content in Linear Regression on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Powered by [Hugo](//gohugo.io).</copyright>
+    <lastBuildDate>Sat, 20 May 2017 11:58:06 +0200</lastBuildDate>
+    
+	<atom:link href="https://mathvsmachine.com/categories/linear-regression/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Coordinates: Regression the way we know it</title>
+      <link>https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/</guid>
+      <description>In our post series on linear regression in machine learning, up to now, we have already done quite a bit of work: we first gave mathematical definition of supervised learning. We then described how to interpret the concept of linear regression as a class of supervised learners. Along the way, we gave an overview of an important and underestimated tool in linear algebra: the pseudo-inverse.
+Our approach discussed linear regression in the highest possible generality.</description>
+    </item>
+    
+    <item>
+      <title>Disecting Pseudo-inverses</title>
+      <link>https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/</guid>
+      <description>Welcome to the third installment of our post series on linear regression&amp;hellip;our way!!
+Let&amp;rsquo;s start by recapping what we already discussed:
+In the first post, we explained how to define linear regression as a supervised learner: Let $\mathfrak{X}$ be a set of features and $\mathfrak{y}$ a finite dimensional inner product space. Pick $\mathfrak{H} \subset \text{Hom}_{\mathbb{R}}(\mathfrak{X},\mathfrak{y})$ to be any finite dimensional subspace of functions as well as a collection $\mathfrak{D}$ of finite datasets $\Delta \subset \mathfrak{X}\times \mathfrak{y}$ that separate $\mathfrak{H}$ in the sense that any $h \in \mathfrak{H}$ is uniquely determined by its restriction on $\Delta$.</description>
+    </item>
+    
+    <item>
+      <title>Proving Linear Regression</title>
+      <link>https://mathvsmachine.com/2017/05/20/proving-linear-regression/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/proving-linear-regression/</guid>
+      <description>Last time, we introduced linear regression as a new class of learners which we called linear. Let&amp;rsquo;s start with a little recap&amp;hellip;
+We considered a set of features $\mathfrak{X}$ together with labels which in turn took values in a finite-dimensional inner product space $\mathfrak{y}$. We next considered any finite-dimensional subspace $\mathfrak{H}\subset \mathfrak{y}^\mathfrak{X}$ of the vector space of functions $\mathfrak{X}\longrightarrow \mathfrak{y}$ as the possible hypotheses as well as a dataspace $\mathfrak{D}$ consisting of finite subsets of $\mathfrak{X}\times \mathfrak{y}$ which separate the hypothesis space $\mathfrak{H}$.</description>
+    </item>
+    
+    <item>
+      <title>Roundup</title>
+      <link>https://mathvsmachine.com/2017/05/20/roundup/</link>
+      <pubDate>Sat, 20 May 2017 11:58:06 +0200</pubDate>
+      
+      <guid>https://mathvsmachine.com/2017/05/20/roundup/</guid>
+      <description>We have finally arrived at the last post of our series of the proof that linear regression indeed is a sharp learner.
+Recall that in the first post we began by motivating linear regression as a problem on predicting house prices and quickly came to understand there was a beautiful way to frame this probem abstractly:  given any set of features $\mathfrak{X}$ and fd Euclidean space of labels $\mathfrak{y}$, as well as dataspace $\mathfrak{D}$ satisfying the separation condition for a finite dimensional hypothesis space $\mathfrak{H}\subset \mathfrak{y}^{\mathfrak{X}}$, is it possible to find a map $$h:\mathfrak{D} \longrightarrow \mathfrak{H}$$ such that $c(\Delta, h_\Delta)=\min_{h \in \mathfrak{H}} c(\Delta,h)$ where $$ c(\Delta, h)=\sum_{(x,y)\in \Delta}\vert \vert y-h(x)\vert\vert^2 $$</description>
+    </item>
+    
+  </channel>
+</rss>

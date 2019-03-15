@@ -1,0 +1,78 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 3</h2>
+        <p > This week, we discussed chapter 5 from the textbook on the definition of statistical inference.</p></br>
+        We began by a discussion on the final (and most important) example of a distribution: the normal distribution.
+        Recall that this is the distribution whose density is given by
+        \[
+        f_{\mu,\sigma}=\frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{(x-\mu)^2}{2\sigma^2}}
+        \]
+        In order to motivate this distribution, we needed a little more terminology:
+        <div class ="definition">
+        Let \( X:(S,P)\longrightarrow T\) be a random variable. A random sample is a sequence of random variables \(X_1,\ldots X_n\) such that
+        </ol>
+            <li> \(X_i\) and \(X_j\) are independent for \(i\neq j\)  </li>
+            <li> \(P_{X_i}= P_X\) for any \(i\) </li>
+        </ol>
+        </div>
+        I went on to explain how random samples always exist by considering the RV \[ X_i:(S^n,P^n)\longrightarrow T: (s_1,\ldots s_n)\mapsto X(s_i)\]
+        (in more human language: if \(S\) consisted of 100 numbered balls and \(X\)  was the RV that records the number \(X_{20}\) out of a random sample of 100 would be the RV that draws any 100 balls and record the value of the 20th).</br>
+        Knowing what a random sample is, allows us to describe the coveted normal distribution very elegantly:
+        <div class="theorem">(central limit theorem)
+        Let \(X\) be an RV with mean \(\mu\) and variance \(\sigma^2\). For each \(n\), let \(X_1\ldots, X_n\) be a random sample. Cosider the random variable \(L_n=\sqrt{n}(\frac{1}{n}\sum (X_n-\mu\). Then \(L_n\) converges in distribution to a normal distribution. That is \[\lim_{n\to \infty} f_{L_n}(x)=f_{0,\sigma}(x)\] where \(f\) is the density funtion of a normal distribution with mean 0 and variance \(\sigma^2\). 
+        </div></br>
+        We then went on to discuss statistical inference: statistics is about trying to make inferences in a specific setting. We are given a set \(S\) (the sample space) together with a subset \(\Delta\) of data, and use this to define a probability on \(S,P\):\[(S,\Delta)\Longrightarrow (S,P)\Longrightarrow \textrm{ inference }\]
+        Example 5.2.1 yielded some examples of typical inferences we do in the field of statistics:
+        <ul>
+        <li> predict a typical value (when will the machine typically breakdown)</li>
+        <li>find a typical set with a high probability (after how long have 95% of the machines broken down?)</li>
+        <li> determine whether an even is likely to happen (how likely is it the machine breaks down after 7 years?)</li>
+        </ul>
+        To formalize the idea of using data to deduce a probability measure, we introduced statistical models:
+        <div class = "definition">
+        A statistical model \(\Omega\Longrightarrow S\) consists of a family of probability measures \(\{P_\theta\}_{\theta\in \Omega}\), such that \(\theta\longrightarrow P_\theta\) is injective. We also endow it with a chosen value \(\theta \in \Omega\), the true parameter -whenever necessary.
+        </div>
+        I gave an example expanding on 5.3.1: if \(S\) consists of 100 balls some white, some black, then we can consider the amount of black ones  as an unknown parameter \(\theta \in \{1,\ldots , 100\}\). We can then look at the RV \(X: S^2\longrightarrow \{w,b\}^2\) which draws out 2 balls and records the resulting colors. The probability ditribution on \(\{w,b\}^2\) becomes:
+        <table class = "table is-narrow is-bordered is-striped">
+                <tr>
+                    <th> Outcome </th>
+                    <th> (w,w) </th>
+                    <th> (w,b) </th> 
+                    <th> (b,w) </th> 
+                    <th> (b,b) </th>
+                 </tr>
+            <tr>
+                    <th> prob. </th>
+                    <th> \(\frac{(100-\theta)(100-\theta-1)}{9900}\) </th>
+                    <th> \(\frac{(100-\theta)(\theta)}{9900}\)</th> 
+                    <th> \(\frac{(\theta)(100-\theta)}{9900}\) </th> 
+                    <th> \(\frac{(\theta)(\theta-1)}{9900}\) </th>
+                 </tr>
+        </table>
+    Chapter 5 deals with the easiest form of making inferences: descriptive statistics:
+    <div class= "definition">
+    Let \(\Delta \subset S\). The descriptive probability \(P_\theta\) on \(S\) is constructed as follows
+        <ol>
+            <li>define \(P_\Delta(x)=\frac{1}{\vert \Delta \vert }\) for each \(x \in \Delta\) </li>
+            <li>let \(P_\theta={P_\Delta}_X\) where \(X:\Delta\longrightarrow S\)
+        </ol>
+    </div>
+    For a statistical concept and \(\Delta\), we call the smaple version, the result when we apply the corresponding concept to the above definition of \(P_\theta\). For example, 
+        <ol style= "margin-left: 40px">
+            <li>since any element either has probability \(\frac{1}{\vert \Delta\vert}\) or 0 depending wether it lies in \(\Delta\) sample density \(f_\Delta\) for a dataset \(\Delta\subset S\)  is given by
+            \[f_\Delta(x)=\frac{1}{\vert \Delta\vert} \cdot 1_\Delta\]
+            </li>
+            <li> The also means that the cdf satisfies
+            \[F_\Delta(x)=P(y \le x)=\frac{\vert \{y \in \Delta \vert y \le x\}\vert}{\vert \Delta \vert}\]
+            </li>
+            <li> We can then use the sample cdf to compute the sample quantiles \(\min_x p\le F_\theta(x)\) simply by arranging all datapoints  \(x_1\le x_2\ldots \le x_n\), in which case the p-th quantile would be \(x_{\lceil{np}\rceil}\) (where \(\lceil x\ rceil\) denotes the smalest integer larger than \(x\))
+            </li>
+            <li> the sample mean (assuming S will be finite as well, is given by \[\mu=\sum_{x\in S} x\cdot P_\theta(x)=\sum_{x\in \Delta}x\cdot \frac{1}{\vert \Delta \vert}=\frac{1}{\vert \Delta \vert }\sum_{x\in \Delta}\cdot x \]</li>
+            <li>
+            We make final remark: it would seem plausible that the sample variance be defined as
+            \[\frac{1}{\vert \Delta \vert}\sum_{x\in \Delta} (x-\mu)^2\]
+            However, usually, one divides by \(\vert \Delta\vert -1\) instead. Later we will explain the rational behind this, but I gave a very broadstroke idea in class: essentially, you are computing the distance from \(x\)-values to a given \(\mu\). This problem is one dimension lower, and as such it makes sense to divide by \(\vert \Delta\vert -1\) instead...
+            </li>
+        </ol>
+    </div>
+</div>

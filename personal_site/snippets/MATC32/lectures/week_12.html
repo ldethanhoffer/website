@@ -1,0 +1,35 @@
+ <div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 12: Hamiltonian graphs</h2>
+        In this final week of classes, we continued our study of interesting spanning subgraphs of a given (simple, connected) graph \(G=(V,E)\).<br>
+        <ul>
+        	<li> In week 9, we looked spanning trees. That is connected acyclic graphs with vertex set \(V\) </li>
+        	<li> in week 11, we looked at Euler cycles: cycles with edge set \(E\)</li>
+		</ul>
+		Today, we look at a natural variant of the Euler cycle:
+        <div class="definition">
+        A graph is Hamiltonian iff it contains a Hamilton cycle
+        </div>
+        Examples of Hamiltonian cycles include a cycle itself, and any graph with a larger edge set than a Hamiltonian one. This implies that \(K_n\) is Hamiltonian in particular as a second family of examples.<br> 
+        A nice counterexample was raised in class as two cliques that were joined at a single vertex \(v\). For such a graph, it seemed plausible that we wouldnt find a Hamilton cycle, but this had yet to be proved formally. To this end, we will first exhibit some <i> necessary conditions </i> for a graph to be Hamiltonian:
+        <div class="lemma">
+        For a Hamiltonian graph and \(S\subset V\), we have \[c(G\setminus S)\le \vert  S\vert\]
+        </div>
+        <div class="proof">
+        It suffices to note that since \(G\) is Hamiltonian, any component connects to a vertex \(v\) outside of it. This vertex must lie in \(S\) (since otherwise \(v\) cannot be connected to any other component). For each \(v\), we can find at least 1 such vertex. Moreover, they must all be different, since they lie on a Hamiltonian cycle.We found a choice of different vertices corresponding to the different components in \(G\setminus S\). Hence the result
+        </div>
+        Applying this (admittedly) technical result to the case where \(S=\{v\}\), we obtain:
+        <div class="corollary">
+        A Hamiltonian graph is 2-connected (ie at leas two vertices need to be remove to disconect the graph)
+        </div>
+        This explains why joining to cliques at a single vertex yields a non-Hamiltonian graph.<br><br>
+        After finding a(n) (easy) necessary condition, we then went on to search for sufficient conditions. And now come to the reason why we ketp the topic of Hamiltonian graphs until the end. There simply isn't a nice TONCAS answer to the problem of Hamiltonian cycle (compare with planarity, Euler, bipartite, etc..)
+        Here the sufficiency conditions are simply less intuitive and as a result, I just stated the relevant theorems without proof:
+        <div class="theorem">(Dirac)
+        Assume that the degree of each vertex satisfies \[d(v)\ge \frac{\vert V \vert}{2}\]
+        Then \(G\) is Hamiltonian
+        </div>
+        One can ask whether this bound \(\frac{(\vert V\vert}{2} \) is as tight as possible? The answer is yes: for any \(n=\vert V\vert \) there exists a non-Hamiltonian graph such that \(d(v)\le \frac{n}{2}-1\). (see the assigment) <br><br>
+
+    </div>
+</div>

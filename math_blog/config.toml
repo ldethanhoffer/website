@@ -1,0 +1,97 @@
+baseurl = "https://mathvsmachine.com"
+
+languageCode = "en-us"
+
+title = ""
+#diquss account id:
+disqusShortname = "louis-de-thanhoffer"
+
+#Google anlytics tracking id:
+googleAnalytics = 'UA-120720172-1'
+
+# Max number of posts per page
+paginate = 10
+footnotereturnlinkcontents = "↩"
+
+[permalinks]
+    post = "/:year/:month/:day/:slug"
+
+
+[params]
+    author = "Math vs. Machine"
+    bio = "Louis de Thanhoffer de Volcsey"
+    location = ""
+    site_description = ""
+    copyright  = "Powered by [Hugo](//gohugo.io)."
+    avatar = "css/images/bobble_logo-circle.png"
+    logo = ""
+
+    # define which types of pages should be shown. By default the type with the most regular pages:
+    mainSections = ["post"]
+
+    # Format dates with Go's time formatting:
+    date_format = "2006-01-02"
+
+    # Add custom assets with their paths relative to the static folder: the theorems CSS
+	custom_css = ["css/theorems.css"]
+	custom_js  = ["https://sonoisa.github.io/xyjax_ext/xypic.js"]
+
+# Create custom menu entries by defining a label and a link for
+# them. Since you can also link posts, you've the option the
+# place the links before or after them.
+#
+# E.g.: "Home" appears before all linked posts in the menu
+# and "Tags" / "Categories" after them.
+
+[[params.menu]]
+    before = true
+    label  = "Home"
+    link   = "/"
+
+[[params.menu]]
+    before = false
+    label  = "Tags"
+    link   = "tags/"
+
+#[[params.menu]]
+#    before = false
+#    label  = "Categories"
+#    link   = "categories/"
+
+[[params.menu]]
+    before = false
+    label  = "The Book"
+    link   = "files/book.pdf"
+
+[[params.menu]]
+    before = false
+    label = "Post Series"
+    link = 'series/'
+
+# Enter a link for the follow button on the left
+[params.profile]
+    follow_button = "https://louisdethanhoffer.com"
+
+
+[social]
+# Add your social network accounts to the profile section on the left
+# by entering your username. The links to your account will be
+# created automatically.
+    github          = "ldethanhoffer"
+    linkedin        = "louisdethanhoffer"
+    Quora           = "Louis-de-Thanhoffer-de-Volcsey"
+
+# Enable and disable widgets for the right sidebar
+[params.widgets]
+    recent_articles = true
+    series = true
+    categories = false
+    tags = false
+    tag_cloud = true
+
+
+#Define the taxonomies 
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"

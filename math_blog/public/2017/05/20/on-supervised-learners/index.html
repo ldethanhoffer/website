@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>On Supervised Learners &middot; </title>
+    <meta name="generator" content="Hugo 0.27.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Math vs. Machine">
+    
+      <meta name="description" content="">
+    
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
+    <link rel="canonical" href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/"/>
+    <link rel="icon" href="https://mathvsmachine.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://mathvsmachine.com/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/style.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/monokai.css">
+    <link rel="stylesheet" href="https://mathvsmachine.com/fancybox/jquery.fancybox.css">
+    
+    <link rel="stylesheet" href="https://mathvsmachine.com/css/theorems.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="On Supervised Learners" />
+<meta property="og:description" content="The mission statement of this blog is to discuss the foundations of machine learning using elegant mathematics. In order to do that, the natural starting point seems to be to tackle the problem of devising an all-encompassing mathematical definition of machine learning which is robust enough to allow us to prove theorems and by extension explain the some of the current mysteries of the field. Unfortunately, machine learning being as vast field as it is, this seems to be a little quixotic of a pursuit for the time being&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" />
+
+
+
+<meta property="article:published_time" content="2017-05-20T11:58:06&#43;02:00"/>
+<meta property="article:modified_time" content="2017-05-20T11:58:06&#43;02:00"/>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="On Supervised Learners">
+<meta itemprop="description" content="The mission statement of this blog is to discuss the foundations of machine learning using elegant mathematics. In order to do that, the natural starting point seems to be to tackle the problem of devising an all-encompassing mathematical definition of machine learning which is robust enough to allow us to prove theorems and by extension explain the some of the current mysteries of the field. Unfortunately, machine learning being as vast field as it is, this seems to be a little quixotic of a pursuit for the time being&hellip;">
+
+
+<meta itemprop="dateModified" content="2017-05-20T11:58:06&#43;02:00" />
+<meta itemprop="wordCount" content="359">
+
+
+
+<meta itemprop="keywords" content="Supervised learning,ML foundations," />
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="On Supervised Learners"/>
+<meta name="twitter:description" content="The mission statement of this blog is to discuss the foundations of machine learning using elegant mathematics. In order to do that, the natural starting point seems to be to tackle the problem of devising an all-encompassing mathematical definition of machine learning which is robust enough to allow us to prove theorems and by extension explain the some of the current mysteries of the field. Unfortunately, machine learning being as vast field as it is, this seems to be a little quixotic of a pursuit for the time being&hellip;"/>
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://mathvsmachine.com" id="logo">
+          
+          <span class="site-title"></span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <a class="main-nav-link" href="/about/">About</a>
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://mathvsmachine.com/categories/">Categories</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://github.com/ldethanhoffer/ML_for_mathematicians/blob/master/ml4m.pdf">The Book</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+          <td><a class="main-nav-link" href="/about/">About</a></td>
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://mathvsmachine.com/categories/">Categories</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://github.com/ldethanhoffer/ML_for_mathematicians/blob/master/ml4m.pdf">The Book</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="https://mathvsmachine.com" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   	
+    	<aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      
+      <img id="avatar" src="https://mathvsmachine.com/css/images/bobble_logo-circle.png">
+      
+      <h2 id="name">Math vs. Machine</h2>
+      <h3 id="title">Louis de Thanhoffer de Volcsey</h3>
+      
+      
+          <a id="follow" href="https://louisdethanhoffer.com">
+              Website
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        3
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          4
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/ldethanhoffer" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+<td><a href="//linkedin.com/in/louisdethanhoffer" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+<td><a href="//quora.com/Louis-de-Thanhoffer-de-Volcsey" target="_blank" title="Quora"><i class="fa fa-quora"></i></a></td>
+
+
+          <td><a href="https://mathvsmachine.com/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+    
+
+    <section id="main">
+    
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <img src="https://mathvsmachine.com/banners/on_supervised_learners_banner.png" class="article-banner">
+        
+
+        <header class="article-header">
+    <a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/">
+    <h1 class="article-title" itemprop="name">
+        On Supervised Learners
+    </h1>
+    </a>
+    <div class="article-meta">
+
+        
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+            &middot;
+            359
+            words
+            &middot;
+            2
+            minute read
+        </div>
+        
+        
+            
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/tags/supervised-learning">Supervised learning</a>
+                &middot;
+                
+                
+                <a class="article-category-link" href="https://mathvsmachine.com/tags/ml-foundations">ML foundations</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+        <div class="article-entry" itemprop="articleBody">
+            <p>The mission statement of this blog is to discuss the foundations of machine learning using elegant mathematics. In order to do that, the natural starting point seems to be to tackle the problem of devising an all-encompassing mathematical definition of machine learning which is robust enough to allow us to prove theorems and by extension explain the some of the current mysteries of the field. Unfortunately,  machine learning being as vast field as it is, this seems to be a little quixotic of a pursuit for the time being&hellip;<br><br></p>
+
+<p>Instead, we choose to be a little more pragrmatic and focus on  a slightly more specific subfield: that of supervised learning.<br>
+Recall that the paradigm in supervised learning is to start with a dataset split into features and labels and ask wether we can find an assignment between features and labels (of a certain type depending on the context) that best matches the given dataset.</p>
+
+<p>Let&rsquo;s dissect that sentence a little more&hellip;<br><br>
+We&rsquo;ll denote the set of features and labels by $\mathfrak{X}$ and $\mathfrak{y}$ respectively. The space of all possible  datasets $\mathfrak{D}$ should in turn consist of a collection of sets (we&rsquo;ll denote them by $\Delta$) each of which is a subset of $\mathfrak{X}\times \mathfrak{y}$ (also known as a relation between $\mathfrak{X}$ and $\mathfrak{y}$).<br>
+We next introduce a space $\mathfrak{H}\subset \mathfrak{y}^\mathfrak{X}$ of <em>hypotheses</em> which contains the functions $\mathfrak{X}\longrightarrow \mathfrak{y}$ that describe the possible ways we wish to assign a label to a feature.<br>
+A supervised learner now constructs an assignment from the dataspace to the hypothesis space $$h:\mathfrak{D}\longrightarrow \mathfrak{H}: \Delta\mapsto h_\Delta$$
+such that $h_\Delta$ &ldquo;describes&rdquo; the data $\Delta$ optimally.<br>
+To formalize this idea, we introduce a <em>cost function</em> which assigns a real number given any choice of data and hypothesis: $$c: \mathfrak{D}\times \mathfrak{H}\longrightarrow \mathbb{R}: (\Delta,f)\mapsto c(\Delta,f)$$
+The idea that the choice of hypothesis $h_\Delta$ fits the data best now translates to $h_\Delta$ minimizing the cost:
+$$
+    c(\Delta,h_\Delta)=\min_{f\in \mathfrak{H}} c(\Delta,f)
+$$
+This leads to the following definition:
+<div class="definition">
+A learning algorithm consists of a tuple $(\mathfrak{X},\mathfrak{y},\mathfrak{D},\mathfrak{H},h,c)$ where $\mathfrak{D}\subset \textrm{Rel}(\mathfrak{X},\mathfrak{y})$, $\mathfrak{H}\subset \mathfrak{y}^{\mathfrak{X}}$ and $h:\mathfrak{H}\longrightarrow \mathfrak{D}$, $c: \mathfrak{D}\times \mathfrak{H}\longrightarrow \mathbb{R}$ are functions satisfying the learning condition
+$$
+    c(\Delta,h_\Delta)=\min_{f \in \mathfrak{H}} c(\Delta,f)
+$$
+is satisfied
+</div></p>
+
+        </div>
+        <footer class="article-footer">
+    <a data-url="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" data-id="04b0ea8eb458bb6ed8c91f241a48897e" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+    </div>
+
+    
+<nav id="article-nav">
+    
+    <a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">pseudoinverses..served three ways</div>
+    </a>
+    
+
+    
+</nav>
+
+
+</article>
+
+
+<section id="comments">
+    <div id="disqus_thread">
+        <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "louis-de-thanhoffer" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+</section>
+
+
+    </section>
+
+   	
+    	<aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/on_supervised_learners_banner.png)" alt="On Supervised Learners" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/on-supervised-learners/" class="title">On Supervised Learners</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/pseudoinverse.png)" alt="On Supervised Learners" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/pseudoinverses..served-three-ways/" class="title">pseudoinverses..served three ways</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/" class="thumbnail">
+                    
+                        <span style="background-image:url(https://mathvsmachine.com/banners/normal_equation.png)" alt="On Supervised Learners" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    
+                    <p class="item-title"><a href="https://mathvsmachine.com/2017/05/20/the-normal-equation/" class="title">the normal equation</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-05-20 11:58:06 &#43;0200 &#43;0200" itemprop="datePublished">2017-05-20</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/linear-algebra">
+                    linear-algebra
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/linear-regression">
+                    linear-regression
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/ml-foundations">
+                    ml-foundations
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="https://mathvsmachine.com/tags/supervised-learning">
+                    supervised-learning
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-algebra" style="font-size: 12px;">linear-algebra</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/linear-regression" style="font-size: 12px;">linear-regression</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/ml-foundations" style="font-size: 12px;">ml-foundations</a>
+        
+        
+        <a href="https://mathvsmachine.com/tags/supervised-learning" style="font-size: 12px;">supervised-learning</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+    
+	
+
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018
+      Powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://mathvsmachine.com/fancybox/jquery.fancybox.pack.js"></script>
+<script src="https://mathvsmachine.com/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+
+<script src="https://sonoisa.github.io/xyjax_ext/xypic.js"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+</body>
+</html>

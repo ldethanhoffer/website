@@ -1,0 +1,90 @@
+<div class="columns course_snippet">
+    <div class="column">
+        <h2 class="is-size-4">Week 4</h2>
+       <!--
+        <a class="button article_link" href="https://courses.engr.illinois.edu/cs473/sp2017/notes/10-maxflow.pdf">notes</a>
+        <br><br>
+        -->
+        <p > In this fourth week we continued on to discuss the details of the max-flow/min-cut theorem. We began by describing the architecture of the proof. As a side note, we did not follow the discussion in the textbook, as it seemed like the above notes which were part of a course at the university of Illinios were way more transparent<br>
+         We made the extra assumption that the network in question \(G\) has no 2-cycles (this is pretty harmless)abd went on to  prove the flow-capacity (in)equality:
+        <div class= "lemma">
+        Let \(f\) be any flow  \(f\) of value \(\vert f\vert \) and \((S,T)\) any cut of capacity \(\vert \vert (S,T) \vert \vert\).<br>
+        Then we have \[\vert f\vert \le \vert \vert \vert S,T\vert\vert\]</div>
+        Essentially this relied on two sneaky observations (see if you can remember which ones):
+        \begin{align}
+        \vert f\vert =\partial f(s)=\sum_{v \in S}\partial f(v)=&\sum_{v\in S}\bigg(\sum_{u \in S} f(v\rightarrow u) -\sum_{w\in S}f(w\rightarrow v)\bigg)\\=&\sum_{v\in S}\bigg(\sum_{u \in T} f(v\rightarrow u) -\sum_{w\in T}f(w\rightarrow v)\bigg)\\
+        \le & \sum_{v\in S}\bigg(\sum_{u \in T} f(v\rightarrow u)\bigg)\le \sum_{u\in S, v \in T} f(u\rightarrow v)\le \sum c(u\rightarrow v)=\vert\vert (S,T)\vert \vert
+        \end{align}
+        In particular, we could also conclude when this inequality was in fact an equality. To this end, we say that the flow saturates an edge if \(f(u\rightarrow v)=c(u\rightarrow v)\) and avoids an edge if \(f(u\rightarrow v)=0\). The above series of implications then easily implies that
+        <div class= "lemma"> 
+            the following are equivalent 
+            <ol>
+                <li> \(\vert f \vert =\vert \vert S,T\vert \vert\)</li>
+                <li> the flow saturates any edge from \(S\) to \(T \) and avoids any edge from \(T\) to \(S\)
+            </ol>
+        In this case the flow is maximal and the cut is minimal.
+        </div>
+        The question of understanding the max-flow/min-cut theorem hence relies on figuring out which flows/cuts are configured so that the flow saturates certain edges and avoids others.<br>
+        The clever idea here is to introduce a new network with a new capacity based off \( f \)
+        
+        <div class= "definition">
+            The residual network \(G_f\) has the same vertex set as \(G\) and an edge \(u\rightarrow v \) whenever \(u\rightarrow v\) has nonzero residual capacity. <br>
+            Here, we define the residual capacity as follows:
+            \begin{equation}
+                c_f(u\rightarrow v)=
+                \begin{cases}
+                  c(u\rightarrow v)-f(u\rightarrow v) & \text{if}\ u\rightarrow v \in E(G) \\
+                  f(u\rightarrow v) & \text{if } v\rightarrow u \in E(G) \\
+                  0  & \text{otherwise} 
+                \end{cases}
+              \end{equation}
+        </div>
+        In other, words, to construct the residual network \(G_f\), simply add a directed edge between any two vertices and perform the following operation: if there is an edge \(u\rightarrow v\) in \(G\), then the new capacity is \(c(u\rightarrow v)-f(u\rightarrow v)\). If the edge in \(G\) goes in the opposite direction \(v\rightarrow u\) however, then the capacity is \(c_f(u\rightarrow v)=c(v\rightarrow u)\). Now, delete all edges with 0 residual capacity.
+        In the illustration below, this procedure is performed on our running example:
+                     <img src="assets/MATC32/lectures/week_4/graph_1.png">
+
+        The reason for invoking this construction is the following lemma:
+        <div class= "lemma">
+        If the residual network has no directed paths from source to sink, then flow \(f\) is maximal on \(G\)
+        </div>
+        To argue this, we merely need to show that given \(f\), there exists a cut \(S,T\) such that \(f\) saturates edges from \(S\) to \(T\) and avoids edges from \(T\) to \(S\). To this end, we let \(S\) be all vertices reachable from \(s\) (i.e there is a directed path from \(s\) to any \(v \in S\)) and let \(T\) be the complement. Then this is indeed a cut for the network \(G\). Let \(u\rightarrow v\) be an edge from \(S\) to \(T\) in \(G\). Then, by construction, this edge is deleted in \(G_f\) (otherwise \(u\) would be reachalble from \(s\), and \(u \in \S\cap T\), a contradiction). so that
+        \[
+        0=c_f(0\rightarrow v)=c(u\rightarrow v)-f(u\rightarrow v)+f(v\rightarrow u)
+        \]
+        This in particular implies that \(c(u\rightarrow v)-f(u\rightarrow v)=0\) (saturatedness) and  \(f(v\rightarrow u)=0\) (avoidance)
+        </p> 
+        We concluded our discussion of the theorem by analyzing what happens in the case where \(f\) is in fact non-maximal. <br>
+        In this case, by the above, we can find a path in the residual graph. We let \(F\) denote the minimum of the capacities along that path. In the original network \(G\), there now also corresponds an undirected path \(p\). We now define a new flow \(f'\) on \(G\) as follows
+        \begin{equation}
+                f'(u\rightarrow v)=
+                \begin{cases}
+                  f(u\rightarrow v)+F & \text{if}\ u\rightarrow v \in p \\
+                  f(u\rightarrow v)-F & \text{if } v\rightarrow u  \in p \\
+                  0  & \text{otherwise} 
+                \end{cases}
+              \end{equation}
+
+        The idea is illustrated below with our running example, where \(F\=5) and the flow along the red path either increases or decreases based off whether the arrows in the residual netwrok run in the same direction as the original
+         <img src="assets/MATC32/lectures/week_4/graph_2.png">
+         In class, we argued why this is indeed a flow and why the value of the flow gets increased by \(F>0\). The leads to the famous Ford-Fulkerton algorithm to maximize flow:
+         <div class="theorem">
+             Let \(f\) be a flow on a graph (possibly zero). Then the following algorithm produces a maximal flow:
+             <ol>
+                 <li> if \(f\) is nonmaximal, find a path in the residual network </li>
+                 <li> compute the flow along each edge of the path and let \(F\) be the minimum</li>
+                 <li> in the corresponding path of the original network \(p\) add/deduce the flow by \(F\) according to direction as above </li>
+                 <li> repeat untill there are no paths in residual network</li>
+             </ol>
+         </div>
+        We can now summarize the max-flow, min-cut theorem:
+        <div class= "theorem">
+        Let  Let \(f\) be any flow  \(f\) of value \(\vert f\vert \) and \((S,T)\) any cut of capacity \(\vert \vert (S,T) \vert \vert\). Then
+        <ol>
+            <li> we have \[\vert f\vert \le \vert \vert \vert S,T\vert\vert\]</li>
+            <li> the flow is maximal if and only if the above is an equality </li>
+            <li> the flow is maximal if and only the residual network has no paths</li>
+            <li> in the case where the flow is not maximal, the Ford-Fulkerton algorithm describes how to use such paths to increase the flow at each step</li>
+        </ol>
+        </div>
+    </div>
+</div>
