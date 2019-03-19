@@ -15,9 +15,7 @@
 
 <!DOCTYPE html>
 
-
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <!--Include the Bulma CSS framework-->
@@ -42,13 +40,10 @@
         <!-- Give the website a title-->
         <title>Louis de Thanhoffer de Volcsey</title>
     </head>
-
     <body>
-    
         <?php 
             include('snippets/navigation.html');
         ?>
-
         <div class="frame"> <!--name the class frame since container and box are already used by Bulma-->
             <?php
             extract($_GET); /* get all GET variables from url and set them to index.php variables*/
@@ -72,10 +67,8 @@
             include($include_path);
             ?>
         </div>
-
         <?php
             include('snippets/footer.html');
         ?>
-        
     </body>
 </html>
