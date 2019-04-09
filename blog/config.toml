@@ -61,7 +61,7 @@ footnotereturnlinkcontents = "↩"
 [[params.menu]]
     before = false
     label  = "The Book"
-    link   = "files/book.pdf"
+    link   = "https://github.com/ldethanhoffer/MathvsMachine-the-book/blob/master/book.pdf"
 
 [[params.menu]]
     before = false

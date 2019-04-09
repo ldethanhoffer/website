@@ -2,7 +2,7 @@
 banner = "banners/learning_condition.png"
 thumbnail = "thumbnails/supervised_learning.png"
 categories = ['Defining supervised learning']
-date = "2017-05-20T11:58:06+02:00"
+date = "2019-01-20T11:58:06+02:00"
 description = ""
 images = ""
 menu = ""

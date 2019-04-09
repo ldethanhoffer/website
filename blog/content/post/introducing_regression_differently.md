@@ -2,7 +2,7 @@
 banner = "banners/linear_learner_cost.png"
 thumbnail = "thumbnails/linear_regression.png"
 categories = ['Defining supervised learning']
-date = "2017-05-20T11:58:06+02:00"
+date = "2018-11-20T11:58:06+02:00"
 description = ""
 images = ""
 menu = ""

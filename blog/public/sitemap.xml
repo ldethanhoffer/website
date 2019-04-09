@@ -3,33 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/coordinates-regression-the-way-we-know-it/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2019/03/04/roundup/</loc>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/defining-supervised-learning/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2019/02/03/coordinates-regression-the-way-we-know-it/</loc>
+    <lastmod>2019-02-03T11:58:06+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/disecting-pseudo-inverses/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2019/01/20/defining-supervised-learning/</loc>
+    <lastmod>2019-01-20T11:58:06+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/introducing-linear-regression..a-little-differently/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2019/01/15/disecting-pseudo-inverses/</loc>
+    <lastmod>2019-01-15T11:58:06+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/proving-linear-regression/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2018/12/01/proving-linear-regression/</loc>
+    <lastmod>2018-12-01T11:58:06+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mathvsmachine.com/2017/05/20/roundup/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <loc>https://mathvsmachine.com/2018/11/20/introducing-linear-regression..a-little-differently/</loc>
+    <lastmod>2018-11-20T11:58:06+02:00</lastmod>
   </url>
   
   <url>
@@ -39,7 +39,7 @@
   
   <url>
     <loc>https://mathvsmachine.com/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -50,61 +50,61 @@
   
   <url>
     <loc>https://mathvsmachine.com/categories/defining-supervised-learning/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-01-20T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/tags/linear-algebra/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mathvsmachine.com/tags/linear-regression/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://mathvsmachine.com/series/linear-regression/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/categories/linear-regression/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mathvsmachine.com/tags/linear-regression/</loc>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mathvsmachine.com/series/linear-regression/</loc>
+    <lastmod>2018-11-20T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/post/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/series/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2018-11-20T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/tags/supervised-learning/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/series/supervised-learning/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-01-20T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://mathvsmachine.com/tags/</loc>
-    <lastmod>2017-05-20T11:58:06+02:00</lastmod>
+    <lastmod>2019-03-04T11:58:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
