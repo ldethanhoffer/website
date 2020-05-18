@@ -1,3 +1,4 @@
+// Make text expandable: 
 $(document).ready(function() {
 	var original_height = $('p.expand-text').css('height');
 	$('.expand-text').click(function() {

@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- define the character encoding -->
+        <!-- Define character encoding -->
         <meta charset="utf-8">
-        <!-- Include title-->
+        <!-- Define title-->
         <title>Louis de Thanhoffer de Volcsey</title>
-        <!--Include Bulma CSS-->
+        <!--Import Bulma CSS Framework-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css">
-        <!-- Include custom CSS  -->
+        <!-- Import custom CSS  -->
         <link rel="stylesheet" href="assets/styles/style.css" type="text/css">
         <link rel="stylesheet" href="assets/styles/theorems.css" type="text/css">
-        <!-- include Font Awesome icons -->
+        <!-- Import Font Awesome icons -->
         <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css"> 
-        <!-- include Researchgate icon separately -->
+        <!-- Import Researchgate icon separately -->
         <link rel="stylesheet" href="assets/fonts/academicons/css/academicons.min.css"> 
-        <!-- include MathJax -->
+        <!-- Import MathJax -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML%2CSafe.js&amp;ver=4.8"></script> 
-        <!--include Jquery-->
+        <!--Import JQuery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- make text expandable-->
         <script src="assets/scripts/toggle.js"></script> 
         <!--make sidebar expandable-->
         <script src="assets/scripts/toggle-menu.js"></script> 
-        <!-- Include Google Analytics -->
+        <!-- Import Google Analytics -->
         <?php include_once("analyticstracking.php") ?>
     </head>
     <body>
-        <!--include the navigation bar -->
+        <!--include navigation bar -->
         <?php include('snippets/navigation.html') ?>
-        <!-- include the content -->
+        <!-- include content -->
         <div class="frame"> <!--name the div "frame" since "container" and "box" are already used by Bulma-->
             <?php
             /* extract GET requests from URL and set them to index.php variables*/

@@ -1,13 +1,11 @@
-My own personal website, built from scratch with the help of TheWeirdOne
+## My own website, built from scratch with the help of TheWeirdOne
 
+ ### Some highlights:
 
+* Integrated the Bulma framework 
 
-Some highlights:
+* added MathJax functionality to include the use of LaTeX
 
-Integrated the Bulma framework 
+* Added PHP functionality
 
-added MathJax functionality to include the use of LaTeX
-
-Added PHP functionality
-
-Added some javascript code using JQuery to make text and sidebar expandable!
+* Added some javascript code using JQuery to make text and sidebar expandable!
