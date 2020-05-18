@@ -1,31 +1,15 @@
-<?php
-    // start the session (this allows us to know if someone has correctly entered the password)
-    session_start();
-    echo '<!-- include password functionality-->';
-
-    // the password is stored in password.php (which is in .gitignore) and loaded in index.
-    include('password.php');
-
-    // if someone submitted the password, check it's correct, and then allow them to see protected pages
-    if (isset($_POST['password']) && $_POST['password'] === $password) {
-        $_SESSION["allowed"] = true;
-    }
-?>
-
-
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <!--Include the Bulma CSS framework-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css" />
-        <!-- Include the CSS style file files -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.4/css/bulma.css">
+        <!-- Include the CSS styling  -->
         <link rel="stylesheet" href="assets/styles/style.css" type="text/css">
         <link rel="stylesheet" href="assets/styles/theorems.css" type="text/css">
         <!-- include icons -->
         <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css"> 
-        <!-- include the Researchgate icon  -->
+        <!-- include the Researchgate icon separately -->
         <link rel="stylesheet" href="assets/fonts/academicons/css/academicons.min.css"> 
         <!-- include mathjax -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML%2CSafe.js&amp;ver=4.8"></script> 
