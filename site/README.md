@@ -1,4 +1,6 @@
-a personal website hosted on louisdethanhoffer.com
+My own personal website, built from scratch with the help of TheWeirdOne
+
+
 
 Some highlights:
 

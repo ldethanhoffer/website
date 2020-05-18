@@ -10,11 +10,11 @@
         <!-- Include custom CSS  -->
         <link rel="stylesheet" href="assets/styles/style.css" type="text/css">
         <link rel="stylesheet" href="assets/styles/theorems.css" type="text/css">
-        <!-- include FA icons -->
+        <!-- include Font Awesome icons -->
         <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css"> 
         <!-- include Researchgate icon separately -->
         <link rel="stylesheet" href="assets/fonts/academicons/css/academicons.min.css"> 
-        <!-- include mathjax -->
+        <!-- include MathJax -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML%2CSafe.js&amp;ver=4.8"></script> 
         <!--include Jquery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,10 +28,14 @@
     <body>
         <!--include the navigation bar -->
         <?php include('snippets/navigation.html') ?>
-        <div class="frame"> <!--name the class frame since container and box are already used by Bulma-->
+        <!-- include the content -->
+        <div class="frame"> <!--name the div "frame" since "container" and "box" are already used by Bulma-->
             <?php
-            extract($_GET); /* get all GET variables from url and set them to index.php variables*/
-            $page = (is_null($page)) ? 'main' : $page; /* if no get request is made: display main*/
+            /* extract GET requests from URL and set them to index.php variables*/
+            extract($_GET);
+            /* if no get request is made: display main*/
+            $page = (is_null($page)) ? 'main' : $page;
+            /* else */
             $include_path = 'pages/';
             if (isset($node_1)) {
               $include_path .= $node_1 . '/';
@@ -44,8 +48,6 @@
             ?>
         </div>
         <!-- include footer-->
-        <?php
-            include('snippets/footer.html');
-        ?>
+        <?php include('snippets/footer.html') ?>
     </body>
 </html>
