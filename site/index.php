@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    
+
     <head>
         <!-- Define character encoding -->
         <meta charset="utf-8">
@@ -25,29 +27,46 @@
         <!-- Import Google Analytics -->
         <?php include_once("analyticstracking.php") ?>
     </head>
+   
+
     <body>
         <!--include navigation bar -->
         <?php include('snippets/navigation.html') ?>
-        <!-- include content -->
+
+        <!-- include the content -->
         <div class="frame"> <!--name the div "frame" since "container" and "box" are already used by Bulma-->
             <?php
-            /* extract GET requests from URL and set them to index.php variables*/
-            extract($_GET);
-            /* if no get request is made: display main*/
-            $page = (is_null($page)) ? 'main' : $page;
-            /* else */
-            $include_path = 'pages/';
-            if (isset($node_1)) {
-              $include_path .= $node_1 . '/';
-            }
-            if (isset($node_2)) {
-              $include_path .= $node_2 . '/';
-            }
-            $include_path .= $page . '.php';
-            include($include_path);
+                // extract GET request from URL and construct php associative array (ie key-value pairs):
+                $query_parameters = $_GET;
+                
+                // extract the php page as a variable
+                // if the query parameters do not contain a php page, set it as main.php
+                if (!isset($query_parameters['page'])) { 
+                    $page = "main";
+                }
+                else {
+                    $page = $query_parameters["page"];
+                    // undeclare it in order to remove it from the directory path
+                    unset($query_parameters["page"]);
+                }
+
+                // use the query parameters to obtain the path within our directory to point to the desired page:
+                // declare the root of the path:
+                $path = "pages";
+                $path_parameters = $query_parameters;
+                // loop through each key-value pair in the path parameters to get the values and form the path
+                foreach($path_parameters as $key => $query_parameter) {
+                    $path = $path . '/' . $query_parameter;
+                }
+
+                // finally, include the page: 
+                include($path . '/' . $page . '.php');
             ?>
         </div>
+        
         <!-- include footer-->
         <?php include('snippets/footer.html') ?>
     </body>
+
+
 </html>

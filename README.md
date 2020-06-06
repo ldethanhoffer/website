@@ -1,4 +1,5 @@
-# a Website for Louis de Thanhoffer
+# a Website for ;q
+Louis de Thanhoffer
 ##  1. Index.php
 The header imports:
 * the [Bulma CSS](https://bulma.io/) framework
