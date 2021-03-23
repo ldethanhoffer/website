@@ -1,4 +1,4 @@
-# a Website for ;q
+# a Website for
 Louis de Thanhoffer
 ##  1. Index.php
 The header imports:
